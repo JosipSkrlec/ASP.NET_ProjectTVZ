@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "ContactSuccess";
+}
+
+<h1>Poruka uspješno poslana!</h1>
+
+
+<div class="alert alert-success" role="alert">
+    Poštovani @ViewBag.FormInformationIme @ViewBag.FormInformationPrezime (@ViewBag.FormInformationEmail) zaprimili
+    smo vašu poruku te će vam se netko ubrzo javiti. Sadržaj vaše poruke je: [@ViewBag.FormInformationupit]
+    @ViewBag.FormInformationPoruka. Također,@if (ViewBag.FormInformationNews == true)
+    {
+        <text>
+            obavijestit ćemo vas
+        </text>
+    }
+    else
+    {
+        <text>
+            nećemo vas obavijestiti
+        </text>
+    }
+</div>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home</li>
+        <li class="breadcrumb-item active" aria-current="page">Home</li>
+    </ol>
+</nav>

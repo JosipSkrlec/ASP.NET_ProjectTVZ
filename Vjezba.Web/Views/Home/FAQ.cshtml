@@ -1,0 +1,40 @@
+﻿@model PitanjaIOdgovori;
+@{
+    ViewData["Title"] = "FAQ";
+}
+
+<h1>FAQ</h1>
+
+
+<h3>@ViewData["ReturnUrl"]</h3>
+
+<br />
+
+<div>
+    @{
+        int indikatorBrojac = 0;
+        @foreach (var pio in ViewData["ReturningList"] as IEnumerable<PitanjaIOdgovori>)
+        {
+            indikatorBrojac++;
+            @if (indikatorBrojac == ViewBag.ReturningIndicator)
+            {
+                <div style="bold">
+                    <b>@pio.Pitanje.ToString()</b>
+                    <br />
+                    <b>@pio.Odgovor.ToString()</b>
+                </div>
+            }
+            else
+            {
+                <div style="bold">
+                    @pio.Pitanje.ToString()
+                    <br />
+                    @pio.Odgovor.ToString()
+                </div>
+            }
+        }
+    }
+
+</div>
+
+<br />

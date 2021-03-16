@@ -1,0 +1,36 @@
+﻿@model Vjezba.Web.Mock.Client
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/Client">Client</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Contact</li>
+        </ol>
+    </nav>
+
+    <h1>Details</h1>
+
+
+    @if (@Model != null)
+    {
+        <p> <b>Id:</b>  @Model.ID  </p>
+        <p> <b>Ime i prezime:</b> @Model.FullName </p>
+        <p> <b>e-mail:</b> @Model.Email </p>
+        <p> <b>Spol:</b> @Model.Email </p>
+        <p> <b>Adresa:</b> @Model.Address </p>
+        <p> <b>tel.:</b> @Model.PhoneNumber </p>
+        <p>
+            <b>Grad:</b>
+            @if (@Model.City != null)
+            {
+
+                <td>@Model.City.Name</td>
+            }
+        </p>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            Klijent pod tim ID-om ne postoji!!!!
+        </div>
+    }

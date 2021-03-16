@@ -1,0 +1,68 @@
+﻿@model List<Vjezba.Web.Mock.Client>
+
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<h1>Index</h1>
+
+<div class="alert alert-success" role="alert">
+    <p> U sustavu postoji @Model.Count klijenata.</p>
+</div>
+
+<form action="/Home/SubmitQuery" method="post">
+
+    <div class="form-row">
+        <div class="form-group col-md-6 col-sm-12">
+            <label for="“query“">“query“</label>
+            <input type="text" class="form-control" id="“query“" name="“query“" placeholder="PartOfName">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-12">
+            <div class="form-group">
+                <button href="@Url.Action("Index", "Client")" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Client</th>
+            <th scope="col">Adress</th>
+            <th scope="col">Email</th>
+            <th scope="col">City</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int indikatorBrojac = 0;
+            @foreach (var client in Model)
+            {
+                indikatorBrojac++;
+                <tr>
+                    <th scope="row">@indikatorBrojac</th>
+                    <td> <a href="/Client/Details/@client.ID">@client.FirstName</a>  </td>
+                    <td>@client.Address</td>
+                    <td>@client.Email</td>
+                    @if (@client.City != null)
+                    {
+
+                        <td>@client.City.Name</td>
+                    }
+                    else
+                    {
+                        <td> </td>
+                    }
+
+                </tr>
+
+            }
+        }
+    </tbody>
+
+</table>
