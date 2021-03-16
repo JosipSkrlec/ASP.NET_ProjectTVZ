@@ -8,28 +8,32 @@ namespace Vjezba.Web.Controllers
     public class ClientController : Controller
     {
         [HttpGet]
-        public IActionResult Index(string clientContainsPartOfName)
-        {
+        public IActionResult Index(string query)
+        {           
+
             MockClientRepository.Instance.All();
 
             List<Client> clientList = new List<Client>();
-
-            clientList = new List<Client>();
 
             foreach (var client in MockClientRepository.Instance.All())
             {
                 clientList.Add(client);
             }
 
-            if (clientContainsPartOfName == null)
+            if (query == null)
             {
                 return View(clientList);
             }
             else
             {
-                var editedClientList = clientList.Where(item => clientList.Any(stringToCheck => item.FirstName.Contains(clientContainsPartOfName)));
+                var editedClientList = clientList.Where(x => x.FirstName.Contains(query.ToString())).ToList();
 
-                return View(editedClientList);
+                if (editedClientList != null)
+                {
+                    return View(editedClientList);
+                }
+
+                return View(clientList);
             }
             
         }
