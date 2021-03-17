@@ -13,6 +13,7 @@ namespace Vjezba.Web.Controllers
         [HttpGet]
         public IActionResult Index(string query)
         {
+            ViewBag.TabIndicator = 1;
 
             MockClientRepository.Instance.All();
 
@@ -41,6 +42,8 @@ namespace Vjezba.Web.Controllers
         [HttpPost]
         public IActionResult Index(string queryName, string queryAdress)
         {
+            ViewBag.TabIndicator = 2;
+
             MockClientRepository.Instance.All();
 
             List<Client> clientList = new List<Client>();
@@ -57,21 +60,23 @@ namespace Vjezba.Web.Controllers
             }
             if (queryAdress != null)
             {
-                var queryTmp = clientList.Where(x => x.Address.Contains(queryName.ToString())).ToList();
+                var queryTmp = clientList.Where(x => x.Address.Contains(queryAdress.ToString())).ToList();
                 clientList = queryTmp;
             }
 
             if (clientList != null)
             {
-                return View(clientList);
+                return View(clientList.ToList());
             }
       
-            return View(clientList);
+            return View(clientList.ToList());
         }
 
         [HttpPost]
         public IActionResult AdvancedSearch(ClientFilterModel model)
         {
+            ViewBag.TabIndicator = 3;
+
             string _dioNazivaKlijenta = model.DioNazivaKlijenta;
             string _dioEmaila = model.DioEmaila;
             string _dioAdrese = model.DioAdrese;
@@ -105,8 +110,8 @@ namespace Vjezba.Web.Controllers
             if (_dioNazivaGrada != null)
             {
  
-                    var queryTmp = clientList.Where(x => (string)x.City.Name.i .Contains(_dioNazivaGrada.ToString())).ToList();
-                    clientList = queryTmp;
+                var queryTmp = clientList.Where(x => x.City is not null && x.City.Name.Contains(_dioNazivaGrada.ToString())).ToList();
+                clientList = queryTmp;
                 
             }
 

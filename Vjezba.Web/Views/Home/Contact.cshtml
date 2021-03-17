@@ -5,6 +5,13 @@
 
 <p>Podaci proslijeđeni iz controller-a: @ViewData["Message"]</p>
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Home">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Contact</li>
+    </ol>
+</nav>
+
 
 <form action="/Home/SubmitQuery" method="post">
 
@@ -146,10 +153,3 @@
 </div>
 
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Kontaktirajte nas!</button>
-
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Home</li>
-        <li class="breadcrumb-item active" aria-current="page">Contact</li>
-    </ol>
-</nav>

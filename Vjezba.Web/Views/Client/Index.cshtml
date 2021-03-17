@@ -4,6 +4,13 @@
     ViewData["Title"] = "Clients";
 }
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Home">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Details</li>
+    </ol>
+</nav>
+
 <h1>Index</h1>
 
 <div class="alert alert-success" role="alert">
@@ -22,8 +29,9 @@
     </li>
 
 </ul>
+
 <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    <div class="tab-pane @(ViewBag.TabIndicator == 1 ? "fade show active" : "fade")" id="home" role="tabpanel" aria-labelledby="home-tab">
 
         <form action="/Client/Index" method="get">
 
@@ -83,7 +91,7 @@
 
     </div>
 
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="tab-pane @(ViewBag.TabIndicator == 2 ? "fade show active" : "fade")" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
         <form action="/Client/Index" method="post">
 
@@ -148,7 +156,7 @@
 
     </div>
 
-    <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="profile1-tab">
+    <div class="tab-pane @(ViewBag.TabIndicator == 3 ? " show active" : "fade")" id="profile1" role="tabpanel" aria-labelledby="profile1-tab">
 
         <form action="/Client/AdvancedSearch" method="post">
 

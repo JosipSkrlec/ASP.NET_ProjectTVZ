@@ -4,6 +4,13 @@
 <h1>@ViewData["Title"]</h1>
 <br />
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Home">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Privacy</li>
+    </ol>
+</nav>
+
 <a href="@Url.Action("FAQ", "Home",new { brojPitanja = "4"})">Link sa parametrom 4.</a>
 <br />
 <a href="@Url.Action("FAQ", "Home")">Link bez parametra</a>
