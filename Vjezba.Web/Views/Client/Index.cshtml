@@ -10,59 +10,217 @@
     <p> U sustavu postoji @Model.Count klijenata.</p>
 </div>
 
-<form action="/Client/Index" method="get">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sa GET</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sa POST</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile1-tab" data-toggle="tab" href="#profile1" role="tab" aria-controls="profile1" aria-selected="false">Advanced</a>
+    </li>
 
-    <div class="form-row">
-        <div class="form-group col-md-6 col-sm-12">
-            <label for="query">query</label>
-            <input type="text" class="form-control" id="query" name="query" placeholder="PartOfName">
-        </div>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-        <div class="form-group col-md-6 col-sm-12">
-            <div class="form-group">
-                <button href="@Url.Action("Index", "Client")" type="submit" class="btn btn-primary">Submit</button>
+        <form action="/Client/Index" method="get">
+
+            <div class="form-row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <input type="text" class="form-control" id="query" name="query" placeholder="query">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <button href="@Url.Action("Index", "Client")" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
             </div>
-        </div>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Adress</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int indikatorBrojac = 0;
+                        @foreach (var client in Model)
+                        {
+                            indikatorBrojac++;
+                            <tr>
+                                <th scope="row">@indikatorBrojac</th>
+                                <td> <a href="/Client/Details/@client.ID">@client.FirstName</a>  </td>
+                                <td>@client.Address</td>
+                                <td>@client.Email</td>
+                                @if (@client.City != null)
+                                {
+
+                                    <td>@client.City.Name</td>
+                                }
+                                else
+                                {
+                                    <td> </td>
+                                }
+
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+
+            </table>
+
+        </form>
+
     </div>
 
-</form>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+        <form action="/Client/Index" method="post">
+
+            <div class="form-row">
+                <div class="form-group col-md-4 col-sm-4">
+                    <input type="text" class="form-control" id="queryName" name="queryName" placeholder="queryName">
+                </div>
+
+                <div class="form-group col-md-4 col-sm-4">
+                    <input type="text" class="form-control" id="queryAdress" name="queryAdress" placeholder="queryAdress">
+                </div>
+
+                <div class="form-group col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <button href="@Url.Action("Index", "Client")" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Client</th>
-            <th scope="col">Adress</th>
-            <th scope="col">Email</th>
-            <th scope="col">City</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            int indikatorBrojac = 0;
-            @foreach (var client in Model)
-            {
-                indikatorBrojac++;
-                <tr>
-                    <th scope="row">@indikatorBrojac</th>
-                    <td> <a href="/Client/Details/@client.ID">@client.FirstName</a>  </td>
-                    <td>@client.Address</td>
-                    <td>@client.Email</td>
-                    @if (@client.City != null)
-                    {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Adress</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int indikatorBrojac1 = 0;
+                        @foreach (var client in Model)
+                        {
+                            indikatorBrojac1++;
+                            <tr>
+                                <th scope="row">@indikatorBrojac1</th>
+                                <td> <a href="/Client/Details/@client.ID">@client.FirstName</a>  </td>
+                                <td>@client.Address</td>
+                                <td>@client.Email</td>
+                                @if (@client.City != null)
+                                {
 
-                        <td>@client.City.Name</td>
+                                    <td>@client.City.Name</td>
+                                }
+                                else
+                                {
+                                    <td> </td>
+                                }
+
+                            </tr>
+
+                        }
                     }
-                    else
-                    {
-                        <td> </td>
+                </tbody>
+
+            </table>
+
+        </form>
+
+
+    </div>
+
+    <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="profile1-tab">
+
+        <form action="/Client/AdvancedSearch" method="post">
+
+            <div class="form-row">
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="DioNazivaKlijenta" name="DioNazivaKlijenta" placeholder="DioNazivaKlijenta">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="DioEmaila" name="DioEmaila" placeholder="DioEmaila">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="DioAdrese" name="DioAdrese" placeholder="DioAdrese">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="DioNazivaGrada" name="DioNazivaGrada" placeholder="DioNazivaGrada">
+                </div>
+
+                <div class="form-group col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <button href="@Url.Action("AdvancedSearch", "Client")" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Adress</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int indikatorBrojac2 = 0;
+                        @foreach (var client in Model)
+                        {
+                            indikatorBrojac2++;
+                            <tr>
+                                <th scope="row">@indikatorBrojac2</th>
+                                <td> <a href="/Client/Details/@client.ID">@client.FirstName</a>  </td>
+                                <td>@client.Address</td>
+                                <td>@client.Email</td>
+                                @if (@client.City != null)
+                                {
+
+                                    <td>@client.City.Name</td>
+                                }
+                                else
+                                {
+                                    <td> </td>
+                                }
+
+                            </tr>
+
+                        }
                     }
+                </tbody>
 
-                </tr>
+            </table>
 
-            }
-        }
-    </tbody>
+        </form>
 
-</table>
+
+    </div>
+
+
+</div>
