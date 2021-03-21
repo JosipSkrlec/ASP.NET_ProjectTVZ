@@ -1,0 +1,335 @@
+@model List<Vjezba.Web.Mock.Client>
+@*@model Tuple<List<Vjezba.Web.Mock.Client>, Vjezba.Web.Models.ClientFilterModel>*@
+
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Home">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Details</li>
+    </ol>
+</nav>
+
+<h1>Index</h1>
+
+<div class="alert alert-success" role="alert">
+    <p> U sustavu postoji @Model.Count klijenata.</p>
+</div>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sa GET</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sa POST</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile1-tab" data-toggle="tab" href="#profile1" role="tab" aria-controls="profile1" aria-selected="false">Advanced</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" id="PartialView-tab" data-toggle="tab" href="#PartialView" role="tab" aria-controls="PartialView" aria-selected="false">PartialView</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" id="PartialView2-tab" data-toggle="tab" href="#PartialView2" role="tab" aria-controls="PartialView2" aria-selected="false">PartialView2</a>
+    </li>
+
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane @(ViewBag.TabIndicator == 1 ? "fade show active" : "fade")" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+        <form action="/Client/Index" method="get">
+
+            <div class="form-row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <input type="text" class="form-control" id="query" name="query" placeholder="query">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <button href="@Url.Action("Index", "Client")" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Adress</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int indikatorBrojac = 0;
+                        @foreach (var client in Model)
+                        {
+                            indikatorBrojac++;
+                            <tr>
+                                <th scope="row">@indikatorBrojac</th>
+                                <td> <a href="/Client/Details/@client.ID">@client.FirstName</a>  </td>
+                                <td>@client.Address</td>
+                                <td>@client.Email</td>
+                                @if (@client.City != null)
+                                {
+
+                                    <td>@client.City.Name</td>
+                                }
+                                else
+                                {
+                                    <td> </td>
+                                }
+
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+
+            </table>
+
+        </form>
+
+    </div>
+
+    <div class="tab-pane @(ViewBag.TabIndicator == 2 ? "fade show active" : "fade")" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+        <form action="/Client/Index" method="post">
+
+            <div class="form-row">
+                <div class="form-group col-md-4 col-sm-4">
+                    <input type="text" class="form-control" id="queryName" name="queryName" placeholder="queryName">
+                </div>
+
+                <div class="form-group col-md-4 col-sm-4">
+                    <input type="text" class="form-control" id="queryAdress" name="queryAdress" placeholder="queryAdress">
+                </div>
+
+                <div class="form-group col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <button href="@Url.Action("Index", "Client")" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Adress</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int indikatorBrojac1 = 0;
+                        @foreach (var client in Model)
+                        {
+                            indikatorBrojac1++;
+                            <tr>
+                                <th scope="row">@indikatorBrojac1</th>
+                                <td> <a href="/Client/Details/@client.ID">@client.FirstName</a>  </td>
+                                <td>@client.Address</td>
+                                <td>@client.Email</td>
+                                @if (@client.City != null)
+                                {
+
+                                    <td>@client.City.Name</td>
+                                }
+                                else
+                                {
+                                    <td> </td>
+                                }
+
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+
+            </table>
+
+        </form>
+
+
+    </div>
+
+    <div class="tab-pane @(ViewBag.TabIndicator == 3 ? " show active" : "fade")" id="profile1" role="tabpanel" aria-labelledby="profile1-tab">
+
+        <form action="/Client/AdvancedSearch" method="post">
+
+            <div class="form-row">
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="FullName" name="FullName" placeholder="FullName">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="Address" name="Address" placeholder="Address">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="Email" name="Email" placeholder="Email">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="City" name="City" placeholder="City">
+                </div>
+
+                <div class="form-group col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <button href="@Url.Action("AdvancedSearch", "Client")" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Adress</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int indikatorBrojac2 = 0;
+                        @foreach (var client in Model)
+                        {
+                            indikatorBrojac2++;
+                            <tr>
+                                <th scope="row">@indikatorBrojac2</th>
+                                <td> <a href="/Client/Details/@client.ID">@client.FirstName</a>  </td>
+                                <td>@client.Address</td>
+                                <td>@client.Email</td>
+                                @if (@client.City != null)
+                                {
+
+                                    <td>@client.City.Name</td>
+                                }
+                                else
+                                {
+                                    <td> </td>
+                                }
+
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+
+            </table>
+
+        </form>
+
+
+    </div>
+
+
+    <div class="tab-pane @(ViewBag.TabIndicator == 4 ? " show active" : "fade")" id="PartialView" role="tabpanel" aria-labelledby="PartialView-tab">
+
+        @*<section id="PartialView">
+                @await Html.PartialAsync("_ClientFilter")
+            </section>*@
+
+        <partial name="_ClientFilter" />
+
+
+    </div>
+
+
+
+    <div class="tab-pane @(ViewBag.TabIndicator == 5 ? " show active" : "fade")" id="PartialView2" role="tabpanel" aria-labelledby="PartialView2-tab">
+
+        <h4>Editor for , name for</h4>
+        <form action="/Client/AdvancedSearch" method="post">
+
+            <div class="form-row">
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="FullName" name="FullName" placeholder="FullName">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="Address" name="Address" placeholder="Address">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="Email" name="Email" placeholder="Email">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-2">
+                    <input type="text" class="form-control" id="City" name="City" placeholder="City">
+                </div>
+
+
+                @*<input type="text" name="@Html.NameFor(p => p.)" />*@
+
+                <div class="form-group col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <button href="@Url.Action("AdvancedSearch", "Client")" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Adress</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int indikatorBrojac3 = 0;
+                        @foreach (var client in Model)
+                        {
+                            indikatorBrojac3++;
+                            <tr>
+                                <th scope="row">@indikatorBrojac3</th>
+                                <td> <a href="/Client/Details/@client.ID">@client.FirstName</a>  </td>
+                                <td>@client.Address</td>
+                                <td>@client.Email</td>
+                                @if (@client.City != null)
+                                {
+
+                                    <td>@client.City.Name</td>
+                                }
+                                else
+                                {
+                                    <td> </td>
+                                }
+
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+
+            </table>
+
+        </form>
+
+
+    </div>
+
+
+
+</div>

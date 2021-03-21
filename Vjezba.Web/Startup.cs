@@ -51,9 +51,21 @@ namespace Vjezba.Web
 
             app.UseEndpoints(endpoints =>
             {
+
+                // route for privacy
+                endpoints.MapControllerRoute(
+                    name: "Privacy",
+                    pattern: "o-aplikaciji/{LANG:regex(^[a-z-]{{2}}$)?}",
+                    defaults: new
+                    {
+                        controller = "Home",
+                        action = "Privacy"
+                    });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
             });
 
             MockClientRepository.Instance.Initialize(Path.Combine(env.WebRootPath, "data"));

@@ -11,6 +11,12 @@
     </ol>
 </nav>
 
+@if (ViewBag.LANG != "")
+{
+    <h3>@ViewBag.LANG</h3>
+}
+
+
 <a href="@Url.Action("FAQ", "Home",new { brojPitanja = "4"})">Link sa parametrom 4.</a>
 <br />
 <a href="@Url.Action("FAQ", "Home")">Link bez parametra</a>

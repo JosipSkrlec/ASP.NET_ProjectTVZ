@@ -11,6 +11,7 @@ using Vjezba.Web.Models;
 
 namespace Vjezba.Web.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -20,16 +21,44 @@ namespace Vjezba.Web.Controllers
             _logger = logger;
         }
 
+        //[Route("/")]
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        // routing se moze staviti tu ili u Startup.cs
+        // VIŠE O ROUTINGU : https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-5.0#route-constraint-reference
+
+        //[Route("o-aplikaciji/{LANG:regex(^[[a-z-]]{{2}}$)?}")]
+        public IActionResult Privacy(string LANG)// ime LANG se pobinda sa parametrom danim nakon /o-aplikaciji/(TOČNO 2 slova) po regex-u
         {
+            if (LANG == "en")
+            {
+                ViewBag.LANG = "en";
+            }
+            else if(LANG == "hr")
+            {
+                ViewBag.LANG = "hr";
+            }
+            else if (LANG == "de")
+            {
+                ViewBag.LANG = "de";
+            }
+            else if (LANG == "zh")
+            {
+                ViewBag.LANG = "zh";
+            }
+            else
+            {
+                ViewBag.LANG = "";
+            }
+
+
             return View();
         }
 
+        //[Route("kontakt-forma")]
         public IActionResult Contact()
         {
             ViewBag.Message = "Jednostavan način proslijeđivanja poruke iz Controller -> View.";
@@ -44,6 +73,7 @@ namespace Vjezba.Web.Controllers
         /// </summary>
         /// <param name="formData"></param>
         /// <returns></returns>
+
         [HttpPost]
         public IActionResult SubmitQuery(IFormCollection formData)
         {
@@ -79,6 +109,7 @@ namespace Vjezba.Web.Controllers
             return View("ContactSuccess");
         }
 
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -88,8 +119,7 @@ namespace Vjezba.Web.Controllers
 
         // ZADACI
 
-
-
+        [Route("cesto-postavljana-pitanja/{ID:int:regex(^[[0-9]]{{1,2}}$)?}")]
         public IActionResult FAQ(int? brojPitanja)
         {
 
