@@ -86,8 +86,11 @@
         </div>
 
         <div role="tabpanel" class="tab-pane @(ViewBag.ActiveTab == 5 ? "show active" : "")" id="z-6-3-1">
+                       
 
-            <h4>Zadatak 6.3.1 - NameFor and EditorFor...</h4>
+            <section id="PartialView">
+                @await Html.PartialAsync("_ClientFilter1", model: new ClientFilterModel())
+            </section>
 
             @*<input type="text" name="@Html.NameFor(p => p.)" />*@
 

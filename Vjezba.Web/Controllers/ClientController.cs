@@ -18,7 +18,7 @@ namespace Vjezba.Web.Controllers
             if (!string.IsNullOrWhiteSpace(query))
                 clientQuery = clientQuery.Where(p => p.FullName.ToLower().Contains(query));
 
-            ViewBag.ActiveTab = 1;
+            ViewBag.ActiveTab = 5;
 
             return View(clientQuery.ToList());
         }
@@ -74,10 +74,48 @@ namespace Vjezba.Web.Controllers
             return View(model);
         }
 
+        // Zadatak 6.4
+        public IActionResult Create()
+        {           
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Client clientInfo)
+        {
+            Client client = new Client();
+
+            MockClientRepository.Instance.All();
+
+            client.ID = clientInfo.ID;
+
+            client.FirstName = clientInfo.FirstName;
+
+            client.LastName = clientInfo.LastName;
+
+            client.Address = clientInfo.Address;
+
+            client.City.Name = "Zagreb";
+            client.City.ID= 200;
+
+            client.Email = clientInfo.Email;
+
+            client.Gender = clientInfo.Gender;
+
+            client.PhoneNumber = clientInfo.PhoneNumber;
+
+
+
+            MockClientRepository.Instance.InsertOrUpdate(client);
+
+            return View();
+        }
+
+
     }
 }
 
-// moja rjesenja 
+// TMP
 
 //[HttpPost]
 //public IActionResult AdvancedSearch(ClientFilterModel model)

@@ -1,0 +1,57 @@
+﻿@model Vjezba.Web.Mock.Client
+
+@using Vjezba.Web.Models
+
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Client">Client list</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Create client</li>
+    </ol>
+</nav>
+
+<h4>Zadatak 6.3 - partial view</h4>
+
+<form action="@Url.Action("Create")" method="post" >
+
+    <div class="form-group">
+        <input type="number" class="form-control" name="ID" placeholder="client id">
+    </div>
+    <br />
+
+    <div class="form-group">
+        <input type="text" class="form-control" name="FirstName" placeholder="client first name">
+    </div>
+    <br />
+
+    <div class="form-group">
+        <input type="text" class="form-control" name="LastName" placeholder="client last name">
+    </div>
+    <br />
+
+    <div class="form-group">
+        <input type="text" class="form-control" name="Address" placeholder="client Adress">
+    </div>
+    <br />
+
+    <div class="form-group">
+        <input type="email" class="form-control" name="Email" placeholder="client e-mail">
+    </div>
+    <br />
+
+    <div class="form-group">
+        <input type="text" class="form-control" name="Gender" placeholder="client gender">
+    </div>
+    <br />
+
+    <div class="form-group">
+        <input type="tel" class="form-control" name="PhoneNumber" placeholder="client phoneNumber">
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>

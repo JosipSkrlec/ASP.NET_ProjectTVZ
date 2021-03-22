@@ -16,7 +16,7 @@ namespace Vjezba.Web.Mock
         public string PhoneNumber { get; set; }
 
         public int? CityID { get; set; }
-        public City City { get; set; }
+        public City City { get; set; } = new City();
 
         public string FullName => $"{FirstName} {LastName}";
 
