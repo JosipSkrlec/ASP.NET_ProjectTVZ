@@ -1,4 +1,4 @@
-﻿@using Vjezba.Web.Mock
+﻿
 @model List<Client>
 
 @{ ViewData["Title"] = "Home Page"; }
@@ -121,7 +121,7 @@
     </td>
     <td>@item.Address</td>
     <td>@item.Email</td>
-    <td>@item.City?.Name</td>
+    @*<td>@item.City?.Name</td>*@
 </tr>}
     </tbody>
 

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Vjezba.Web.Models;
+using Vjezba.Model;
 
 namespace Vjezba.Web.Controllers
 {

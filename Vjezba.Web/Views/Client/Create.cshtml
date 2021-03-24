@@ -1,6 +1,6 @@
-﻿@model Vjezba.Web.Mock.Client
+﻿@model Vjezba.Model.Client
 
-@using Vjezba.Web.Models
+@using Vjezba.Model
 
 @{
     ViewData["Title"] = "Clients";
@@ -15,42 +15,34 @@
 
 <h4>Zadatak 6.3 - partial view</h4>
 
-<form action="@Url.Action("Create")" method="post" >
+<form asp-action="Create" method="post">
 
     <div class="form-group">
-        <input type="number" class="form-control" name="ID" placeholder="client id">
+        <input asp-for="FirstName" class="form-control" placeholder="Ime" />
     </div>
-    <br />
+    <div class="form-group">
+        <input asp-for="LastName" class="form-control" placeholder="Prezime" />
+    </div>
+    <div class="form-group">
+        <input asp-for="Email" class="form-control" placeholder="E-mail" />
+    </div>
 
     <div class="form-group">
-        <input type="text" class="form-control" name="FirstName" placeholder="client first name">
+        <input asp-for="Gender" class="form-control" placeholder="Spol" />
     </div>
-    <br />
 
     <div class="form-group">
-        <input type="text" class="form-control" name="LastName" placeholder="client last name">
+        <input asp-for="Address" class="form-control" placeholder="Adresa" />
     </div>
-    <br />
 
     <div class="form-group">
-        <input type="text" class="form-control" name="Address" placeholder="client Adress">
+        <input asp-for="PhoneNumber" class="form-control" placeholder="Broj" />
     </div>
-    <br />
 
     <div class="form-group">
-        <input type="email" class="form-control" name="Email" placeholder="client e-mail">
+        <input asp-for="CityID" class="form-control" placeholder="City ID" />
     </div>
-    <br />
 
-    <div class="form-group">
-        <input type="text" class="form-control" name="Gender" placeholder="client gender">
-    </div>
-    <br />
-
-    <div class="form-group">
-        <input type="tel" class="form-control" name="PhoneNumber" placeholder="client phoneNumber">
-    </div>
-    <br />
 
     <button type="submit" class="btn btn-primary">Submit</button>
 

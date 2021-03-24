@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Vjezba.Web.Models
+namespace Vjezba.Model
 {
     public class PitanjaIOdgovori
     {
