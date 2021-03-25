@@ -58,7 +58,7 @@ namespace Vjezba.Web.Controllers
             return View();
         }
 
-        //[Route("kontakt-forma")]
+        [Route("kontakt-forma")]
         public IActionResult Contact()
         {
             ViewBag.Message = "Jednostavan način proslijeđivanja poruke iz Controller -> View.";
