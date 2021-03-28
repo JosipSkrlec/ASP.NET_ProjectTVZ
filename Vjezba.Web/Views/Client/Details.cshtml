@@ -1,36 +1,73 @@
-﻿@model Vjezba.Web.Mock.Client
+﻿@model Vjezba.Model.Client
 
+@{
+	ViewData["Title"] = "Details";
+}
 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><a href="/Client">Index</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Details</li>
-        </ol>
-    </nav>
+<h2>Details</h2>
 
-    <h1>Details</h1>
+@if (Model != null)
+{
+	<ol class="breadcrumb">
+		<li><a asp-action="Index">Popis klijenata</a></li>
+		<li class="active">@Model.FullName</li>
+	</ol>
 
+	<div>
+		<h4>Client</h4>
+		<hr />
+		<dl class="dl-horizontal">
+			<dt>
+				ID
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.ID)
+			</dd>
+			<dt>
+				Ime i prezime
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.FullName)
+			</dd>
+			<dt>
+				Email
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Email)
+			</dd>
+			<dt>
+				Spol
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Gender)
+			</dd>
+			<dt>
+				Adresa
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Address)
+			</dd>
+			<dt>
+				Tel.
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.PhoneNumber)
+			</dd>
+			<dt>
+				Grad
+			</dt>
+			<dd>
+				@Model?.City?.Name
+			</dd>
+		</dl>
+	</div>
 
-    @if (@Model != null)
-    {
-        <p> <b>Id:</b>  @Model.ID  </p>
-        <p> <b>Ime i prezime:</b> @Model.FullName </p>
-        <p> <b>e-mail:</b> @Model.Email </p>
-        <p> <b>Spol:</b> @Model.Email </p>
-        <p> <b>Adresa:</b> @Model.Address </p>
-        <p> <b>tel.:</b> @Model.PhoneNumber </p>
-        <p>
-            <b>Grad:</b>
-            @if (@Model.City != null)
-            {
+}
+else
+{
+	<div class="alert alert-danger">
+		Nije odabran ispravni ID klijenta.
+	</div>
 
-                <td>@Model.City.Name</td>
-            }
-        </p>
-    }
-    else
-    {
-        <div class="alert alert-danger" role="alert">
-            Klijent pod tim ID-om ne postoji!!!!
-        </div>
-    }
+}
+

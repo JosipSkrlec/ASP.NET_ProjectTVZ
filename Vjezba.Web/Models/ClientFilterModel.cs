@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Vjezba.Web.Mock;
 
 namespace Vjezba.Web.Models
 {
@@ -12,7 +11,5 @@ namespace Vjezba.Web.Models
         public string Address { get; set; }
         public string Email { get; set; }
         public string City { get; set; }
-
     }
-    
 }

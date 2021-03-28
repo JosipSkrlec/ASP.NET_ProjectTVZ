@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +10,6 @@ using Vjezba.Web.Models;
 
 namespace Vjezba.Web.Controllers
 {
-
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -21,48 +19,32 @@ namespace Vjezba.Web.Controllers
             _logger = logger;
         }
 
-        //[Route("/")]
         public IActionResult Index()
         {
             return View();
         }
 
-        // routing se moze staviti tu ili u Startup.cs
-        // VIŠE O ROUTINGU : https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-5.0#route-constraint-reference
-
-        //[Route("o-aplikaciji/{LANG:regex(^[[a-z-]]{{2}}$)?}")]
-        public IActionResult Privacy(string LANG)// ime LANG se pobinda sa parametrom danim nakon /o-aplikaciji/(TOČNO 2 slova) po regex-u
+        public IActionResult Privacy(string lang)
         {
-            if (LANG == "en")
-            {
-                ViewBag.LANG = "en";
-            }
-            else if(LANG == "hr")
-            {
-                ViewBag.LANG = "hr";
-            }
-            else if (LANG == "de")
-            {
-                ViewBag.LANG = "de";
-            }
-            else if (LANG == "zh")
-            {
-                ViewBag.LANG = "zh";
-            }
-            else
-            {
-                ViewBag.LANG = "";
-            }
-
+            ViewData["Message"] = "Your application description page. Language = " + lang;
 
             return View();
         }
 
-        //[Route("kontakt-forma")]
+        [Route("cesto-postavljana-pitanja/{selected:int:min(1):max(99)?}")]
+        public IActionResult FAQ(int? selected = null)
+        {
+            ViewData["selected"] = selected;
+
+            return View();
+        }
+
         public IActionResult Contact()
         {
             ViewBag.Message = "Jednostavan način proslijeđivanja poruke iz Controller -> View.";
-
+            //Kao rezultat se pogled /Views/Home/Contact.cshtml renderira u "pravi" HTML
+            //Primjetiti - View() je poziv funkcije koja uzima cshtml template i pretvara ga u HTML
+            //Zasto bas Contact.cshtml? Jer se akcija zove Contact, te prema konvenciji se "po defaultu" uzima cshtml datoteka u folderu Views/CONTROLLER_NAME/AKCIJA.cshtml
 
             return View();
         }
@@ -73,39 +55,30 @@ namespace Vjezba.Web.Controllers
         /// </summary>
         /// <param name="formData"></param>
         /// <returns></returns>
-
         [HttpPost]
         public IActionResult SubmitQuery(IFormCollection formData)
         {
             //Ovdje je potrebno obraditi podatke i pospremiti finalni string u ViewBag
-            string ime = formData["inputIme"].ToString();
-            string prezime = formData["inputPrezime"].ToString();
-            string email = formData["inputEmail"].ToString();
-            string poruka = formData["FormTextarea"].ToString();
-            string upit = formData["inputState"].ToString();
 
-            bool Newsletter;
-            if (formData["NewsletterInput"].ToString() == "on")
-            {
-                Newsletter = true;
-            }
-            else
-            {
-                Newsletter = false;
-            }
+            var ime = formData["ime"];
+            var prezime = formData["prezime"];
+            var email = formData["email"];
+            var poruka = formData["poruka"];
+            var tip = formData["tip"];
+            var newsletter = bool.Parse(formData["newsletter"].FirstOrDefault());
 
+            var msg = "Poštovani {0} {1} ({2}) zaprimili smo vašu poruku te će vam se netko ubrzo javiti. Sadržaj vaše poruke je: [{3}] {4}." +
+                " Također, {5} o daljnjim promjenama preko newslettera.";
+
+            ViewBag.Message = string.Format(msg,
+                ime, prezime,
+                email,
+                tip, poruka,
+                newsletter ? "obavijestit cemo vas" : "necemo vas obavijestiti");
 
             //Kao rezultat se pogled /Views/Home/ContactSuccess.cshtml renderira u "pravi" HTML
             //Kao parametar se predaje naziv cshtml datoteke koju treba obraditi (ne koristi se default vrijednost)
             //Trazenu cshtml datoteku je potrebno samostalno dodati u projekt
-
-            ViewBag.FormInformationIme = ime;
-            ViewBag.FormInformationPrezime = prezime;
-            ViewBag.FormInformationEmail = email;
-            ViewBag.FormInformationPoruka = poruka;
-            ViewBag.FormInformationupit = upit;
-            ViewBag.FormInformationNews = Newsletter;
-
             return View("ContactSuccess");
         }
 
@@ -115,28 +88,5 @@ namespace Vjezba.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
-        // ZADACI
-
-        [Route("cesto-postavljana-pitanja/{ID:int:regex(^[[0-9]]{{1,2}}$)?}")]
-        public IActionResult FAQ(int? brojPitanja)
-        {
-
-            var list = new List<PitanjaIOdgovori>();
-            list.Add(new PitanjaIOdgovori { Pitanje = "1.Da li je nebo plavo?", Odgovor = "DA" });
-            list.Add(new PitanjaIOdgovori { Pitanje = "2.Da li je jež bodljikav?", Odgovor = "DA" });
-            list.Add(new PitanjaIOdgovori { Pitanje = "3.Da li je drvo drveno?", Odgovor = "DA" });
-            list.Add(new PitanjaIOdgovori { Pitanje = "4.Da li je 2 + 2 = 5?", Odgovor = "NE" });
-            list.Add(new PitanjaIOdgovori { Pitanje = "5.Da li je jabuka povrće?", Odgovor = "NE" });
-
-
-            ViewData["ReturningList"] = list;
-            ViewBag.ReturningIndicator = brojPitanja;
-            return View();
-        }
-
-
     }
-
 }
