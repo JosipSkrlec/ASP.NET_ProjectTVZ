@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Vjezba.Model
+namespace Vjezba.Web.Models
 {
     public class ClientFilterModel
     {

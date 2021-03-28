@@ -31,11 +31,7 @@ namespace Vjezba.DAL.Migrations
 
                     b.HasKey("ID");
 
-<<<<<<< HEAD
                     b.ToTable("Cities");
-=======
-                    b.ToTable("Cityes");
->>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
 
                     b.HasData(
                         new
@@ -46,20 +42,12 @@ namespace Vjezba.DAL.Migrations
                         new
                         {
                             ID = 2,
-<<<<<<< HEAD
                             Name = "Velika Gorica"
-=======
-                            Name = "Split"
->>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
                         },
                         new
                         {
                             ID = 3,
-<<<<<<< HEAD
                             Name = "Vrbovsko"
-=======
-                            Name = "Rijeka"
->>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
                         });
                 });
 
@@ -101,27 +89,17 @@ namespace Vjezba.DAL.Migrations
 
             modelBuilder.Entity("Vjezba.Model.Meeting", b =>
                 {
-<<<<<<< HEAD
                     b.Property<int>("Id")
-=======
-                    b.Property<int>("ID")
->>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-<<<<<<< HEAD
                     b.Property<int>("ClientID")
                         .HasColumnType("int");
-=======
-                    b.Property<string>("Cancelled")
-                        .HasColumnType("nvarchar(max)");
->>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
 
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
                     b.Property<DateTime?>("End")
                         .HasColumnType("datetime2");
 
@@ -140,24 +118,6 @@ namespace Vjezba.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientID");
-=======
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Scheduled")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoCall")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("VideoCallEndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("VideoCallStartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
->>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
 
                     b.ToTable("Meetings");
                 });
@@ -165,16 +125,11 @@ namespace Vjezba.DAL.Migrations
             modelBuilder.Entity("Vjezba.Model.Client", b =>
                 {
                     b.HasOne("Vjezba.Model.City", "City")
-<<<<<<< HEAD
                         .WithMany("Clients")
-=======
-                        .WithMany()
->>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
                         .HasForeignKey("CityID");
 
                     b.Navigation("City");
                 });
-<<<<<<< HEAD
 
             modelBuilder.Entity("Vjezba.Model.Meeting", b =>
                 {
@@ -196,8 +151,6 @@ namespace Vjezba.DAL.Migrations
                 {
                     b.Navigation("Meetings");
                 });
-=======
->>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
 #pragma warning restore 612, 618
         }
     }
