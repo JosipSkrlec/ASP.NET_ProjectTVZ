@@ -1,6 +1,6 @@
 using System;
 
-namespace Vjezba.Web.Models
+namespace Vjezba.Model
 {
     public class ErrorViewModel
     {

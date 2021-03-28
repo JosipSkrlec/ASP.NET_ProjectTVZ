@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Vjezba.Web.Models;
+using Vjezba.Model;
 
 namespace Vjezba.Web.Controllers
 {
@@ -39,6 +39,10 @@ namespace Vjezba.Web.Controllers
             return View();
         }
 
+<<<<<<< HEAD
+=======
+        [Route("kontakt-forma")]
+>>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
         public IActionResult Contact()
         {
             ViewBag.Message = "Jednostavan način proslijeđivanja poruke iz Controller -> View.";

@@ -1,15 +1,21 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.HttpsPolicy;
+=======
+>>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+<<<<<<< HEAD
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+=======
+>>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
 using Vjezba.DAL;
 
 namespace Vjezba.Web
@@ -30,9 +36,18 @@ namespace Vjezba.Web
                 .AddRazorRuntimeCompilation();
 
             services.AddDbContext<ClientManagerDbContext>(options =>
+<<<<<<< HEAD
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ClientManagerDbContext"),
                     opt => opt.MigrationsAssembly("Vjezba.DAL")));
+=======
+             options.UseSqlServer(
+             Configuration.GetConnectionString("ClientManagerDbContext"),
+             opt => opt.MigrationsAssembly("Vjezba.DAL")));
+
+    //        services.AddDbContext<LandingPageContext>(options =>
+    //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+>>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
 
         }
 
@@ -72,6 +87,12 @@ namespace Vjezba.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+<<<<<<< HEAD
+=======
+
+            //MockClientRepository.Instance.Initialize(Path.Combine(env.WebRootPath, "data"));
+            //MockCityRepository.Instance.Initialize(Path.Combine(env.WebRootPath, "data"));
+>>>>>>> ca337c58b2cd131e98988edf6f40063ec79d1352
         }
     }
 }

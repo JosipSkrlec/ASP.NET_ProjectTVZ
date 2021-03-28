@@ -1,0 +1,22 @@
+﻿@model ClientFilterModel
+
+@using Vjezba.Model
+
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<h4>Zadatak 6.3.1 - NameFor and EditorFor...</h4>
+
+@using (Html.BeginForm("AdvancedSearch", "Client", FormMethod.Post))
+{
+
+    <br />
+    <strong>@Html.NameFor(m => m.FullName)</strong> @Html.EditorFor(m => m.FullName)
+    <strong>@Html.NameFor(m => m.Address)</strong> @Html.EditorFor(m => m.Address)
+    <strong>@Html.NameFor(m => m.Email)</strong> @Html.EditorFor(m => m.Email)
+    <strong>@Html.NameFor(m => m.City)</strong> @Html.EditorFor(m => m.City)
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+

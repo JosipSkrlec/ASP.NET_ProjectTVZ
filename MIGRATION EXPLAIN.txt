@@ -1,0 +1,8 @@
+
+
+// MIGRATION SCRIPT .. staviti ih u .DAL projekt i.. navigacija pomocu cd.. pa cd Vjezba.DAL..
+// nakon toga pokrenuti skripte prvo initial pa update... trebamo imati sql server 2018 ... i unutra DB = "ClientManager"
+// ime servera je .\Sqlexpress
+dotnet ef migrations add Initial --startup-project ../Vjezba.Web --context ClientManagerDbContext
+
+dotnet ef database update --startup-project ../Vjezba.Web --context ClientManagerDbContext
