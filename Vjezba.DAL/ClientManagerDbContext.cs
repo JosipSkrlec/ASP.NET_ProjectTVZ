@@ -12,6 +12,7 @@ namespace Vjezba.DAL
             : base(options)
         {
 
+
         }
 
         public DbSet<Client> Clients { get; set; }

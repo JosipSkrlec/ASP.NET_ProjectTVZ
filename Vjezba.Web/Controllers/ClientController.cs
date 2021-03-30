@@ -37,7 +37,10 @@ namespace Vjezba.Web.Controllers
             if (!string.IsNullOrWhiteSpace(filter.City))
                 clientQuery = clientQuery.Where(p => p.CityID != null && p.City.Name.ToLower().Contains(filter.City.ToLower()));
 
-            var model = clientQuery.ToList();
+
+            var model = clientQuery.OrderBy(p => p.ID).ToList();
+
+
             return View("Index", model);
         }
 
@@ -53,17 +56,65 @@ namespace Vjezba.Web.Controllers
 
         public IActionResult Create()
         {
+            List<string> genders = new List<string>();
+            genders.Add("");
+            genders.Add("M");
+            genders.Add("Z");
+
+            ViewBag.PossibleCategories = genders;
+
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Client model)
         {
-            model.CityID = 1;
-            this._dbContext.Clients.Add(model);
-            this._dbContext.SaveChanges();
+            List<string> genders = new List<string>();
+            genders.Add("");
+            genders.Add("M");
+            genders.Add("Z");
+
+            ViewBag.PossibleCategories = genders;
+
+            if (ModelState.IsValid)
+            {
+                model.CityID = 1;
+                this._dbContext.Clients.Add(model);
+                this._dbContext.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
 
             return RedirectToAction(nameof(Index));
         }
+
+        [ActionName("Edit")]
+        public IActionResult EditGet(int? id = null)
+        {
+            var client = this._dbContext.Clients
+                .Where(p => p.ID == id)
+                .FirstOrDefault();
+
+            return View(client);
+        }
+
+        [HttpPost]
+        [ActionName("Edit")]
+        public async Task<IActionResult> EditPost(int id)
+        {
+
+            var client = this._dbContext.Clients.First(p => p.ID == id);
+            var update = await TryUpdateModelAsync(client);
+
+            if (update)
+            {
+                this._dbContext.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }       
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
     }
 }
