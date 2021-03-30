@@ -47,7 +47,7 @@ namespace Vjezba.Web.Controllers
         public IActionResult Details(int? id = null)
         {
             var client = this._dbContext.Clients
-                .Include(p => p.City)
+                //.Include(p => p.City)
                 .Where(p => p.ID == id)
                 .FirstOrDefault();
 

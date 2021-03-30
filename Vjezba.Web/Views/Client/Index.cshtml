@@ -2,45 +2,70 @@
 @model List<Client>
 
 @{
-	ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
 }
 
 <style>
-	.tab-pane {
-		padding: 20px;
-	}
+    .tab-pane {
+        padding: 20px;
+    }
 </style>
 
 <h1>Popis klijenata</h1>
 <div style="margin-top: 20px; margin-bottom: 10px;">
-	<partial name="_ClientFilter" model="new ClientFilterModel()" />
+    <partial name="_ClientFilter" model="new ClientFilterModel()" />
 </div>
 
 <table style="margin-top: 20px;" class="table table-condensed">
-	<thead>
-		<tr>
-			<th>Client</th>
-			<th>Address</th>
-			<th>Email</th>
-			<th>City</th>
-			<th>asdaf</th>
-
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
+    <thead>
         <tr>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.ID">@item.FullName</a>
-            </td>
-            <td>@item.Address</td>
-            <td>@item.Email</td>
-            <td>@item.City?.Name</td>
-            <td>
-				<a asp-action="Edit" asp-route-id="@item.ID" class="btn bg-primary">Uredi</a>
-			</td>
+            <th>Client</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>City</th>
+            <th>asdaf</th>
+
         </tr>
-		}
-	</tbody>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="opacity" class="Bold">
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ID">@item.FullName</a>
+                </td>
+                <td>@item.Address</td>
+                <td>@item.Email</td>
+                <td>@item.City?.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn bg-primary">Uredi</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+@section scripts{
+    <script type="text/javascript">
+
+
+        $(function () {
+            $("#opacity").css('opacity', '0.5');
+        });
+
+
+        $(document).ready(function () {
+            $("tr").hover(function () {
+                $(this).css('opacity', '1.0');
+            }, function () {
+                $(this).css('opacity', '0.5');
+            });
+        });
+
+        $('tr').click(function (e) {
+            $(this).css("font-weight", "bold");
+            e.stopPropagation();
+        });
+
+    </script>
+}
