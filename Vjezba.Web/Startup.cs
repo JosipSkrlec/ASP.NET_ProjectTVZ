@@ -58,20 +58,16 @@ namespace Vjezba.Web
 
             app.UseAuthorization();
 
-
-
             var supportedCultures = new[]
-             {
-             new CultureInfo("hr"), new CultureInfo("en-US")
-             };
+            {
+            new CultureInfo("hr"), new CultureInfo("en-US")
+            };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture("hr"),
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
-
-
 
 
             app.UseEndpoints(endpoints =>

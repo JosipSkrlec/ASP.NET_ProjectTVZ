@@ -31,59 +31,10 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div class="form-group">
-                <label class="control-label">Ime</label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Prezime</label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" id="HintTarget" class="form-control" /> <span style="display:none">npr. jskrlec1997@gmail.com</span>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label">Spol</label>
-                <input asp-for="Gender" class="form-control" />
-            </div>
-
-            @*<div class="form-group">
-                    <label class="control-label">Spol</label>
-                    <select asp-for="Gender" aspitems="ViewBag.PossibleCategories" class="form-control"></select>
-                </div>*@
-            <div class="form-group">
-                <label class="control-label">Obitavalište</label>
-                <input id="Address" asp-for="Address" class="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label class="control-label">Tel.</label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span autocomplete="true" asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label">City ID</label>
-                <select asp-for="CityID" asp-items="ViewBag.PossibleCategories" class="form-control"> </select>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label"></label>
-                <input asp-for="DateOfBirth" id="datepicker" type="text" class="form-control" value="@System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower()" />
-                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Spremi" class="btn btn-outline-success" />
-            </div>
+            <partial name="_CreateOrEdit" model="Model" />
         </form>
     </div>
 </div>
-
 
 
 @section scripts{
@@ -97,7 +48,10 @@
             $(this).next("span").css("display", "none");
         });
 
-
+         $('#DateOfBirth').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: '@System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower()'});
+    
         var _isDirty = false;
         $("input[type='text']").change(function () {
             _isDirty = true;
@@ -107,10 +61,6 @@
                 return true;
             }
         }
-
-        $(function () {
-            $("#datepicker").datepicker();
-        });
 
         google.maps.event.addDomListener(window, 'load', function () {
             var options = {
@@ -123,42 +73,5 @@
 
 
         });
-
-
-        //google.maps.event.addDomListener(window, 'load', function () {
-        //    var places = new google.maps.places.Autocomplete(document.getElementById('<%=txtLocation.ClientID %>'));
-        //    google.maps.event.addListener(places, 'place_changed', function () {
-        //        var place = places.getPlace();
-        //        document.getElementById('<%=txtAddress.ClientID %>').value = place.formatted_address;
-        //        document.getElementById('<%=txtLatitude.ClientID %>').value = place.geometry.location.lat();
-        //        document.getElementById('<%=txtLongitude.ClientID %>').value = place.geometry.location.lng();
-        //    });
-        //});
-
-
-
     </script>
 }
-
-<script>
-  
-
-    //mapboxgl.accessToken = 'pk.eyJ1Ijoiam9zaXAxMjM0NTYiLCJhIjoiY2tteG1hcHB0MHFqOTJwbjF6Zm53ZnE3NiJ9.7Vo2lTVV4zIJbuM4NsBPCQ';
-    //var map = new mapboxgl.Map({
-    //    container: 'map',
-    //    style: 'none',
-    //    //center: [-79.4512, 43.6568],
-    //    //zoom: 13
-    //});
-
-    //var geocoder = new MapboxGeocoder({
-    //    accessToken: mapboxgl.accessToken,
-    //    marker: {
-    //        color: 'orange'
-    //    },
-    //    mapboxgl: mapboxgl
-    //});
-
-    //map.addControl(geocoder);
-</script>
-

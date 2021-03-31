@@ -72,14 +72,21 @@ namespace Vjezba.Web.Controllers
         [HttpPost]
         public IActionResult Create(Client model)
         {
-            List<string> genders = new List<string>();
-            genders.Add("");
-            genders.Add("M");
-            genders.Add("Z");
+            //List<string> genders = new List<string>();
+            //genders.Add("");
+            //genders.Add("M");
+            //genders.Add("Z");
 
-            ViewBag.PossibleCategories = genders;
+            //ViewBag.PossibleCategories = genders;
 
             if (ModelState.IsValid)
+            {
+                model.CityID = 1;
+                this._dbContext.Clients.Add(model);
+                this._dbContext.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            else
             {
                 model.CityID = 1;
                 this._dbContext.Clients.Add(model);
