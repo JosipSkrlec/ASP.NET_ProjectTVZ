@@ -25,12 +25,14 @@ namespace Vjezba.Model
         [Required(ErrorMessage = "Morate unjeti broj za kontakt!")]
         public string PhoneNumber { get; set; }
 
-        //[Range(0, 100)]
-        //public int? WorkingExperience { get; set; }
+        [Range(0, 100)]
+        public int? WorkingExperience { get; set; }
 
         [ForeignKey(nameof(City))]
         public int? CityID { get; set; }
         public City City { get; set; }
+
+        public DateTime? DateOfBirth { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
 

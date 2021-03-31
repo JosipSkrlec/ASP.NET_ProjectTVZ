@@ -48,10 +48,12 @@
 @section scripts{
     <script type="text/javascript">
 
-
-        $(function () {
-            $("#opacity").css('opacity', '0.5');
-        });
+        window.onload = function () {
+            $("tr").css('opacity', '0.5');
+        };
+        //$(function () {
+        //    $("#opacity").css('opacity', '0.5');
+        //});
 
 
         $(document).ready(function () {
@@ -62,10 +64,19 @@
             });
         });
 
-        $('tr').click(function (e) {
-            $(this).css("font-weight", "bold");
-            e.stopPropagation();
+        $("tr").click(function () {
+            $(this).toggleClass("bold");
         });
+        //$('tr').click(function (e) {
+        //    $(this).css("font-weight", "bold");
+        //    e.stopPropagation();
+        //});
 
     </script>
+
+    <style>
+        .bold {
+            font-weight: bold;
+        }
+    </style>
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -56,13 +57,15 @@ namespace Vjezba.Web.Controllers
 
         public IActionResult Create()
         {
-            List<string> genders = new List<string>();
-            genders.Add("");
-            genders.Add("M");
-            genders.Add("Z");
+            //List<string> genders = new List<string>();
+            //genders.Add("");
+            //genders.Add("M");
+            //genders.Add("Z");
 
-            ViewBag.PossibleCategories = genders;
+            //ViewBag.PossibleCategories = genders;
+            var culture = System.Threading.Thread.CurrentThread.CurrentCulture;
 
+            ViewBag.PossibleCategories = GetCityListItems();
             return View();
         }
 
@@ -109,11 +112,32 @@ namespace Vjezba.Web.Controllers
             {
                 this._dbContext.SaveChanges();
                 return RedirectToAction(nameof(Index));
-            }       
+            }
 
             return RedirectToAction(nameof(Index));
         }
 
+
+
+        private List<SelectListItem> GetCityListItems()
+        {
+            var selectedItems = new List<SelectListItem>();
+
+            var listItem = new SelectListItem();
+            listItem.Text = "- odaberite -";
+            listItem.Value = "";
+            selectedItems.Add(listItem);
+
+            foreach (City city in this._dbContext.Cities.ToList())
+            {
+                var item = new SelectListItem();
+                item.Text = city.Name;
+                item.Value = city.ID.ToString();
+                selectedItems.Add(item);
+            }
+            
+            return selectedItems;
+        }
 
 
     }
