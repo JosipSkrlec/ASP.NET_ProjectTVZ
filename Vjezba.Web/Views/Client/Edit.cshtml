@@ -1,27 +1,21 @@
 ﻿@model Vjezba.Model.Client
 
 @{
-	ViewData["Title"] = "Editiranje postoječeg klijenta";
+	ViewData["Title"] = "Uređivanje klijenta";
 }
 
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a asp-action="Index">Popis klijenata</a></li>
-		<li class="breadcrumb-item active" aria-current="page">Editiranje klijenta</li>
+		<li class="breadcrumb-item active" aria-current="page">Uređivanje klijenta</li>
 	</ol>
 </nav>
 
 <div class="row">
 	<div class="col-md-4">
-        <form asp-action="Edit">
-            <partial name="_CreateOrEdit" model="Model" />
-        </form>
+		<form asp-action="Edit">
+			<input type="hidden" asp-for="ID" />
+			<partial name="_CreateOrEdit" />
+		</form>
 	</div>
 </div>
-
-<script>
-    $('#DateOfBirth').datepicker({
-    uiLibrary: 'bootstrap4',
-    format: '@System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower()'});
-
-</script>

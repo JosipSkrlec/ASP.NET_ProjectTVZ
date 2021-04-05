@@ -1,77 +1,20 @@
 ﻿@model Vjezba.Model.Client
 
 @{
-    ViewData["Title"] = "Dodavanje novog klijenta";
+	ViewData["Title"] = "Dodavanje novog klijenta";
 }
-<head>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
-
-</head>
-<body>
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
-    <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-</body>
 
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a asp-action="Index">Popis klijenata</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Novi klijent</li>
-    </ol>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a asp-action="Index">Popis klijenata</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Novi klijent</li>
+	</ol>
 </nav>
 
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <partial name="_CreateOrEdit" model="Model" />
-        </form>
-    </div>
+	<div class="col-md-4">
+		<form asp-action="Create">
+			<partial name="_CreateOrEdit" />
+		</form>
+	</div>
 </div>
-
-
-@section scripts{
-    <script type="text/javascript">
-
-        $("#HintTarget").focus(function () {
-            $(this).next("span").css("display", "inline");
-        });
-
-        $("#HintTarget").focusout(function () {
-            $(this).next("span").css("display", "none");
-        });
-
-         $('#DateOfBirth').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: '@System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower()'});
-    
-        var _isDirty = false;
-        $("input[type='text']").change(function () {
-            _isDirty = true;
-        });
-        window.onbeforeunload = function () {
-            if (_isDirty) {
-                return true;
-            }
-        }
-
-        google.maps.event.addDomListener(window, 'load', function () {
-            var options = {
-                types: ['(cities)'],
-               
-            };
-
-            var input = document.getElementById('Address');
-            var places = new google.maps.places.Autocomplete(input, options);
-
-
-        });
-    </script>
-}

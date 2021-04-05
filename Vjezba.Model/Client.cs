@@ -11,28 +11,29 @@ namespace Vjezba.Model
     {
         [Key]
         public int ID { get; set; }
-        [StringLength(20, MinimumLength = 2)]
-        [Required(ErrorMessage = "Morate unjeti vaše ime!")]
+
+        [Required]
+        [MinLength(3, ErrorMessage = "Unesite barem 3 znaka")]
         public string FirstName { get; set; }
-        [Required(ErrorMessage = "Morate unjeti vaše Prezime!")]
+
+        [Required]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Morate unjeti e-mail adresu")]
-        [EmailAddress(ErrorMessage = "Kriva e-mail adresa")]
+        [Required]
         public string Email { get; set; }
+
+        public DateTime? DateOfBirth { get; set; }
+
+        [Range(1, 100)]
+        public int? WorkingExperience { get; set; }
+
         public char Gender { get; set; }
         public string Address { get; set; }
-        [Required(ErrorMessage = "Morate unjeti broj za kontakt!")]
         public string PhoneNumber { get; set; }
-
-        [Range(0, 100)]
-        public int? WorkingExperience { get; set; }
 
         [ForeignKey(nameof(City))]
         public int? CityID { get; set; }
         public City City { get; set; }
-
-        public DateTime? DateOfBirth { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
 
