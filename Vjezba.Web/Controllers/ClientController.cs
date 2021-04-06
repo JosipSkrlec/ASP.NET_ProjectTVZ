@@ -88,6 +88,7 @@ namespace Vjezba.Web.Controllers
             }
             else
             {
+
                 model.CityID = 1;
                 this._dbContext.Clients.Add(model);
                 this._dbContext.SaveChanges();
