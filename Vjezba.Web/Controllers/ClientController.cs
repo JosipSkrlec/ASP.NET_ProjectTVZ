@@ -22,7 +22,7 @@ namespace Vjezba.Web.Controllers
 
         public IActionResult Index(ClientFilterModel filter)
         {
-            var clientQuery = this._dbContext.Clients.AsQueryable();
+            var clientQuery = this._dbContext.Clients.Include(p => p.City).AsQueryable();
 
             filter = filter ?? new ClientFilterModel();
 
@@ -38,17 +38,14 @@ namespace Vjezba.Web.Controllers
             if (!string.IsNullOrWhiteSpace(filter.City))
                 clientQuery = clientQuery.Where(p => p.CityID != null && p.City.Name.ToLower().Contains(filter.City.ToLower()));
 
-
-            var model = clientQuery.OrderBy(p => p.ID).ToList();
-
-
+            var model = clientQuery.ToList();
             return View("Index", model);
         }
 
         public IActionResult Details(int? id = null)
         {
             var client = this._dbContext.Clients
-                //.Include(p => p.City)
+                .Include(p => p.City)
                 .Where(p => p.ID == id)
                 .FirstOrDefault();
 
@@ -57,96 +54,77 @@ namespace Vjezba.Web.Controllers
 
         public IActionResult Create()
         {
-            //List<string> genders = new List<string>();
-            //genders.Add("");
-            //genders.Add("M");
-            //genders.Add("Z");
-
-            //ViewBag.PossibleCategories = genders;
-            var culture = System.Threading.Thread.CurrentThread.CurrentCulture;
-
-            ViewBag.PossibleCategories = GetCityListItems();
+            this.FillDropdownValues();
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Client model)
         {
-            //List<string> genders = new List<string>();
-            //genders.Add("");
-            //genders.Add("M");
-            //genders.Add("Z");
-
-            //ViewBag.PossibleCategories = genders;
-
             if (ModelState.IsValid)
             {
-                model.CityID = 1;
                 this._dbContext.Clients.Add(model);
                 this._dbContext.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
             else
             {
+<<<<<<< HEAD
 
                 model.CityID = 1;
                 this._dbContext.Clients.Add(model);
                 this._dbContext.SaveChanges();
                 return RedirectToAction(nameof(Index));
+=======
+                this.FillDropdownValues();
+                return View();
+>>>>>>> c378acf20897c59cf18ebe0e8312d042139ddf99
             }
-
-            return RedirectToAction(nameof(Index));
         }
 
-        [ActionName("Edit")]
-        public IActionResult EditGet(int? id = null)
+        [ActionName(nameof(Edit))]
+        public IActionResult Edit(int id)
         {
-            var client = this._dbContext.Clients
-                .Where(p => p.ID == id)
-                .FirstOrDefault();
-
-            return View(client);
+            var model = this._dbContext.Clients.FirstOrDefault(c => c.ID == id);
+            this.FillDropdownValues();
+            return View(model);
         }
 
         [HttpPost]
-        [ActionName("Edit")]
+        [ActionName(nameof(Edit))]
         public async Task<IActionResult> EditPost(int id)
         {
+            var client = this._dbContext.Clients.FirstOrDefault(c => c.ID == id);
+            var ok = await this.TryUpdateModelAsync(client);
 
-            var client = this._dbContext.Clients.First(p => p.ID == id);
-            var update = await TryUpdateModelAsync(client);
-
-            if (update)
+            if (ok && this.ModelState.IsValid)
             {
                 this._dbContext.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
 
-            return RedirectToAction(nameof(Index));
+            this.FillDropdownValues();
+            return View();
         }
 
-
-
-        private List<SelectListItem> GetCityListItems()
+        private void FillDropdownValues()
         {
-            var selectedItems = new List<SelectListItem>();
+            var selectItems = new List<SelectListItem>();
 
+            //Polje je opcionalno
             var listItem = new SelectListItem();
             listItem.Text = "- odaberite -";
             listItem.Value = "";
-            selectedItems.Add(listItem);
+            selectItems.Add(listItem);
 
-            foreach (City city in this._dbContext.Cities.ToList())
+            foreach (var category in this._dbContext.Cities)
             {
-                var item = new SelectListItem();
-                item.Text = city.Name;
-                item.Value = city.ID.ToString();
-                selectedItems.Add(item);
+                listItem = new SelectListItem(category.Name, category.ID.ToString());
+                selectItems.Add(listItem);
             }
-            
-            return selectedItems;
+
+            ViewBag.PossibleCities = selectItems;
         }
-
-
     }
 }

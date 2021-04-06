@@ -1,8 +1,9 @@
 ﻿@model Vjezba.Model.Client
 
 @{
-    ViewData["Title"] = "Dodavanje novog klijenta";
+	ViewData["Title"] = "Dodavanje novog klijenta";
 }
+<<<<<<< HEAD
 <head>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
@@ -20,58 +21,20 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </body>
+=======
+>>>>>>> c378acf20897c59cf18ebe0e8312d042139ddf99
 
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a asp-action="Index">Popis klijenata</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Novi klijent</li>
-    </ol>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a asp-action="Index">Popis klijenata</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Novi klijent</li>
+	</ol>
 </nav>
 
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <partial name="_CreateOrEdit" model="Model" />
-        </form>
-    </div>
+	<div class="col-md-4">
+		<form asp-action="Create">
+			<partial name="_CreateOrEdit" />
+		</form>
+	</div>
 </div>
-
-
-@section scripts{
-    <script type="text/javascript">
-
-        $("#HintTarget").focus(function () {
-            $(this).next("span").css("display", "inline");
-        });
-
-        $("#HintTarget").focusout(function () {
-            $(this).next("span").css("display", "none");
-        });
-
-         $('#DateOfBirth').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: '@System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower()'});
-    
-        var _isDirty = false;
-        $("input[type='text']").change(function () {
-            _isDirty = true;
-        });
-        window.onbeforeunload = function () {
-            if (_isDirty) {
-                return true;
-            }
-        }
-
-        google.maps.event.addDomListener(window, 'load', function () {
-            var options = {
-                types: ['(cities)'],
-               
-            };
-
-            var input = document.getElementById('Address');
-            var places = new google.maps.places.Autocomplete(input, options);
-
-
-        });
-    </script>
-}

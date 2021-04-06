@@ -12,4 +12,6 @@ namespace Vjezba.Web.Models
         public string Email { get; set; }
         public string City { get; set; }
     }
+
 }
+
