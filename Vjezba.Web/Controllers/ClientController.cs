@@ -70,16 +70,12 @@ namespace Vjezba.Web.Controllers
             }
             else
             {
-<<<<<<< HEAD
-
-                model.CityID = 1;
-                this._dbContext.Clients.Add(model);
-                this._dbContext.SaveChanges();
-                return RedirectToAction(nameof(Index));
-=======
+                //model.CityID = 1;
+                //this._dbContext.Clients.Add(model);
+                //this._dbContext.SaveChanges();
+                //return RedirectToAction(nameof(Index));
                 this.FillDropdownValues();
                 return View();
->>>>>>> c378acf20897c59cf18ebe0e8312d042139ddf99
             }
         }
 
