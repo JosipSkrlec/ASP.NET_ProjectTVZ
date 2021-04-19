@@ -1,0 +1,6 @@
+GET = https://localhost:12121/api/client   "GetAllClients"
+GET = https://localhost:12121/api/client/4  "GetClientByID"
+GET = https://localhost:12121/api/client/pretraga/jos  "GetClientByContainsName"
+POST = https://localhost:12121/api/client "AddNewClient"
+PUT = https://localhost:12121/api/client/3 "PutMetoda"
+DEL = https://localhost:12121/api/client/3  "DeleteMetoda"
