@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Vjezba.DAL;
+using Vjezba.Model;
 
 namespace Vjezba.Web
 {
@@ -28,14 +30,28 @@ namespace Vjezba.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews()
-                .AddRazorRuntimeCompilation();
 
             services.AddDbContext<ClientManagerDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ClientManagerDbContext"),
                     opt => opt.MigrationsAssembly("Vjezba.DAL")));
 
+            /*services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ClientManagerDbContext>();*/
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<ClientManagerDbContext>();
+
+            services.AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
+
+            services.AddAuthentication().AddGoogle(opt =>
+            {
+                opt.ClientId = "930756123504-3pum46ta993gpj486eks2qeviebovaps.apps.googleusercontent.com";
+                opt.ClientSecret = "Xdr0KdhALmPoi8HRayj-c8vh";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,19 +72,8 @@ namespace Vjezba.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
-            var supportedCultures = new[]
-            {
-                new CultureInfo("hr"), new CultureInfo("en-US")
-            };
-
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("hr"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
 
             app.UseEndpoints(endpoints =>
             {
@@ -85,7 +90,23 @@ namespace Vjezba.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("hr"), new CultureInfo("en-US")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("hr"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
+            
         }
     }
 }

@@ -35,9 +35,14 @@ namespace Vjezba.Model
         public int? CityID { get; set; }
         public City City { get; set; }
 
+        public String CreatedBy { get; set; }
+        public String UpdatedBy { get; set; }
+
         public string FullName => $"{FirstName} {LastName}";
 
         public virtual ICollection<Meeting> Meetings { get; set; }
+
+        public virtual ICollection<Attachment> Attachments { get; set; }
 
     }
 }

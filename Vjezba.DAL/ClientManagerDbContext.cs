@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +7,7 @@ using Vjezba.Model;
 
 namespace Vjezba.DAL
 {
-    public class ClientManagerDbContext : DbContext
+    public class ClientManagerDbContext : IdentityDbContext<AppUser>
     {
         public ClientManagerDbContext(DbContextOptions<ClientManagerDbContext> options)
             : base(options)
@@ -26,6 +27,8 @@ namespace Vjezba.DAL
             modelBuilder.Entity<City>().HasData(new City { ID = 1, Name = "Zagreb" });
             modelBuilder.Entity<City>().HasData(new City { ID = 2, Name = "Velika Gorica" });
             modelBuilder.Entity<City>().HasData(new City { ID = 3, Name = "Vrbovsko" });
+            modelBuilder.Entity<Client>().HasData(new Client { ID = 1, FirstName = "Marko", LastName = "Markic", Email= "mmarkic@index.hr", CityID = 1});
+            modelBuilder.Entity<Client>().HasData(new Client { ID = 2, FirstName = "Ana", LastName = "Anic", Email = "aanic@yahoo.com", CityID = 2});
         }
 
     }

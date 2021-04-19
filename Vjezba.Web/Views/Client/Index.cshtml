@@ -16,30 +16,23 @@
 	<partial name="_ClientFilter" model="new ClientFilterModel()" />
 </div>
 
-<table style="margin-top: 20px;" class="table table-condensed">
-	<thead>
-		<tr>
-			<th>Client</th>
-			<th>Address</th>
-			<th>Email</th>
-			<th>City</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
-		<tr>
-			<td>
-				<a asp-action="Details" asp-route-id="@item.ID">@item.FullName</a>
-			</td>
-			<td>@item.Address</td>
-			<td>@item.Email</td>
-			<td>@item.City?.Name</td>
-			<td>
-				<a asp-action="Edit" asp-route-id="@item.ID">[edit]</a>
-			</td>
-		</tr>
-		}
-	</tbody>
-</table>
+<div id="table-cont">
+
+</div>
+
+@section Scripts{ 
+	<script>
+		$("#filterBtn").click(function () {
+			$.ajax({
+				url: "@Url.Action("IndexAjax")",
+				method: "POST",
+				data: $("#filter-form").serialize(),
+                contentType: "application/json",
+				success: function(html) {
+					console.log(html);
+					$("#table-cont").html(html);
+				},
+            })
+        })
+	</script>
+}
