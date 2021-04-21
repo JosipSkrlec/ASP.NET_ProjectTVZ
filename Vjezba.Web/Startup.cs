@@ -2,11 +2,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using System.Globalization;
+using System.IO;
 using Vjezba.DAL;
 using Vjezba.Model;
 
@@ -16,7 +19,8 @@ namespace Vjezba.Web
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration;            
+
         }
 
         public IConfiguration Configuration { get; }
@@ -24,7 +28,6 @@ namespace Vjezba.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddDbContext<ClientManagerDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ClientManagerDbContext"),
@@ -51,6 +54,21 @@ namespace Vjezba.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            // provider za .obj file MIME type
+            var provider = new FileExtensionContentTypeProvider();
+            // Add new mappings
+            provider.Mappings[".obj"] = "text/plain";
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "3DModels")),
+                RequestPath = "/3DModels",
+                ContentTypeProvider = provider
+            });
+            // do tuda
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
