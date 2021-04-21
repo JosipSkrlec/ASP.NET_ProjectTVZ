@@ -2,200 +2,131 @@
 <html>
 <head>
     <meta charset=UTF-8 />
-   @* <link rel="stylesheet" type="text/css" href="styles.css" />*@
+    @* <link rel="stylesheet" type="text/css" href="styles.css" />*@
 </head>
 <body>
     <script src="~/js/three.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/104/three.js"></script>
-        <script src="~/js/GLTFLoader.js"></script>
-        <script src="~/js/OrbitControls.js"></script>
-        <script src="~/js/OBJLoader.js"></script>
-        <script src="~/js/draco_decoder.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/104/three.js"></script>*@
+    <script src="~/js/OrbitControls.js"></script>
+    <script src="~/js/OBJLoader.js"></script>
 
-    <script>console.clear();</script>
-    <script src="https://unpkg.com/three@0.87.1/build/three.js"></script>
-    <script src="https://unpkg.com/three@0.87.1/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://unpkg.com/three@0.87.1/examples/js/loaders/GLTFLoader.js"></script>
+    @*<script src="https://unpkg.com/three@0.87.1/build/three.js"></script>
+        <script src="https://unpkg.com/three@0.87.1/examples/js/controls/OrbitControls.js"></script>
+        <script src="https://unpkg.com/three@0.87.1/examples/js/loaders/GLTFLoader.js"></script>*@
 
-    <canvas id="c"></canvas>
+    <canvas id="c" style=" width: 100%; height: 100%; display: block;"></canvas>
 
     <script>
-        //var objLoader = new THREE.OBJLoader();
-        //var material = new THREE.MeshBasicMaterial({ color: 'yellow', side: THREE.DoubleSide });
-        //objLoader.load('3DModels/Test.obj', function (obj) {
-        //    obj.traverse(function (child) {
 
-        //        if (child instanceof THREE.Mesh) {
-        //            child.material = material;
-        //        }
+        function main() {
+            const canvas = document.querySelector('#c');
+            const renderer = new THREE.WebGLRenderer({ canvas });
 
-        //    });
-        //    scene.add(obj);
-        //});
+            const fov = 45;
+            const aspect = 2;  // the canvas default
+            const near = 0.1;
+            const far = 100;
+            const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+            camera.position.set(0, 10, 20);
 
-        // instantiate a loader
-        const loader = new THREE.OBJLoader();
+            const controls = new THREE.OrbitControls(camera, canvas);
+            controls.target.set(0, 5, 0);
+            controls.update();
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color('black');
 
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+            {
+                const planeSize = 40;
 
-        const geometry = new THREE.BoxGeometry();
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+                const loader = new THREE.TextureLoader();
+                const texture = loader.load('https://threejsfundamentals.org/threejs/resources/images/checker.png');
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.wrapT = THREE.RepeatWrapping;
+                texture.magFilter = THREE.NearestFilter;
+                const repeats = planeSize / 2;
+                texture.repeat.set(repeats, repeats);
 
-        camera.position.z = 5;
-
-        const animate = function () {
-            requestAnimationFrame(animate);
-
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
-
-            renderer.render(scene, camera);
-        };
-
-        animate();
-
-        // load a resource
-        loader.load(
-            // resource URL
-            '3DModels/Test.obj',
-            // called when resource is loaded
-
-            function (object) {
-
-                scene.add(object);
-
-            },
-            // called when loading is in progresses
-            function (xhr) {
-
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-
-            },
-            // called when loading has errors
-            function (error) {
-
-                console.log('An error happened');
-
+                const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+                const planeMat = new THREE.MeshPhongMaterial({
+                    map: texture,
+                    side: THREE.DoubleSide,
+                });
+                const mesh = new THREE.Mesh(planeGeo, planeMat);
+                mesh.rotation.x = Math.PI * -.5;
+                scene.add(mesh);
             }
-        );
 
-        //const backgroundColor = 0x000000;
+            {
+                const skyColor = 0xB1E1FF;  // light blue
+                const groundColor = 0xB97A20;  // brownish orange
+                const intensity = 1;
+                const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+                scene.add(light);
+            }
 
-        ///*////////////////////////////////////////*/
+            {
+                const color = 0xFFFFFF;
+                const intensity = 1;
+                const light = new THREE.DirectionalLight(color, intensity);
+                light.position.set(5, 10, 2);
+                scene.add(light);
+                scene.add(light.target);
+            }
 
-        //var renderCalls = [];
-        //function render() {
-        //    requestAnimationFrame(render);
-        //    renderCalls.forEach((callback) => {
-        //        callback();
-        //    });
-        //}
-        //render();
+            var objLoader = new THREE.OBJLoader();
+            var material = new THREE.MeshBasicMaterial({ color: 'blue', side: THREE.DoubleSide });
+            objLoader.load('3DModels/TVZ.obj', function (obj) {
+                obj.traverse(function (child) {
 
-        ///*////////////////////////////////////////*/
+                    if (child instanceof THREE.Mesh) {
+                        child.material = material;
+                    }
 
-        //var scene = new THREE.Scene();
+                });
+                scene.add(obj);
+            });
 
-        //var camera = new THREE.PerspectiveCamera(
-        //    80,
-        //    window.innerWidth / window.innerHeight,
-        //    0.1,
-        //    800
-        //);
-        //camera.position.set(5, 5, 5);
+            //{
+            //    const mtlLoader = new THREE.MTLLoader();
+            //    mtlLoader.load('3DModels/Test.obj', (mtl) => {
+            //        mtl.preload();
+            //        const objLoader = new THREE.OBJLoader();
+            //        objLoader.setMaterials(mtl);
+            //        objLoader.load('3DModels/Test.obj', (root) => {
+            //            scene.add(root);
+            //        });
+            //    });
+            //}
 
-        //var renderer = new THREE.WebGLRenderer({ antialias: true });
-        //renderer.setPixelRatio(window.devicePixelRatio);
-        //renderer.setSize(window.innerWidth, window.innerHeight);
-        //renderer.setClearColor(backgroundColor); //0x );
+            function resizeRendererToDisplaySize(renderer) {
+                const canvas = renderer.domElement;
+                const width = canvas.clientWidth;
+                const height = canvas.clientHeight;
+                const needResize = canvas.width !== width || canvas.height !== height;
+                if (needResize) {
+                    renderer.setSize(width, height, false);
+                }
+                return needResize;
+            }
 
-        //renderer.toneMapping = THREE.LinearToneMapping;
-        //renderer.toneMappingExposure = Math.pow(0.94, 5.0);
-        //renderer.shadowMap.enabled = true;
-        //renderer.shadowMap.type = THREE.PCFShadowMap;
+            function render() {
 
-        //window.addEventListener(
-        //    "resize",
-        //    function () {
-        //        camera.aspect = window.innerWidth / window.innerHeight;
-        //        camera.updateProjectionMatrix();
-        //        renderer.setSize(window.innerWidth, window.innerHeight);
-        //    },
-        //    false
-        //);
+                if (resizeRendererToDisplaySize(renderer)) {
+                    const canvas = renderer.domElement;
+                    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                    camera.updateProjectionMatrix();
+                }
 
-        //document.body.appendChild(renderer.domElement);
+                renderer.render(scene, camera);
 
-        //function renderScene() {
-        //    renderer.render(scene, camera);
-        //}
-        //renderCalls.push(renderScene);
+                requestAnimationFrame(render);
+            }
 
-        ///* ////////////////////////////////////////////////////////////////////////// */
+            requestAnimationFrame(render);
+        }
 
-        //var controls = new THREE.OrbitControls(camera);
-
-        //controls.rotateSpeed = 0.3;
-        //controls.zoomSpeed = 0.9;
-
-        //controls.minDistance = 3;
-        //controls.maxDistance = 20;
-
-        //controls.minPolarAngle = 0; // radians
-        //controls.maxPolarAngle = Math.PI / 2; // radians
-
-        //controls.enableDamping = true;
-        //controls.dampingFactor = 0.05;
-
-        //renderCalls.push(function () {
-        //    controls.update();
-        //});
-
-        ///* ////////////////////////////////////////////////////////////////////////// */
-
-        //var light = new THREE.PointLight(0xffffcc, 20, 200);
-        //light.position.set(4, 30, -20);
-        //scene.add(light);
-
-        //var light2 = new THREE.AmbientLight(0x20202a, 20, 100);
-        //light2.position.set(30, -10, 30);
-        //scene.add(light2);
-
-        ///* ////////////////////////////////////////////////////////////////////////// */
-
-        //var loader = new THREE.GLTFLoader();
-        //loader.crossOrigin = true;
-        //loader.load(
-        //    "~/3D_Models/s", //https://s3-us-west-2.amazonaws.com/s.cdpn.io/39255/ladybug.gltf
-        //    function (data) {
-        //        var object = data.scene;
-        //        object.position.set(0, -10, -0.75);
-        //        //     object.rotation.set(Math.PI / -2, 0, 0);
-
-        //        //     TweenLite.from( object.rotation, 1.3, {
-        //        //       y: Math.PI * 2,
-        //        //       ease: 'Power3.easeOut'
-        //        //     });
-
-        //        //TweenMax.from(object.position, 3, {
-        //        //    y: -8,
-        //        //    yoyo: true,
-        //        //    repeat: -1,
-        //        //    ease: "Power2.easeInOut"
-        //        //});
-        //        //object.position.y = - 95;
-        //        scene.add(object);
-        //        //, onProgress, onError );
-        //    }
-        //);
-
+        main();
 
     </script>
 
