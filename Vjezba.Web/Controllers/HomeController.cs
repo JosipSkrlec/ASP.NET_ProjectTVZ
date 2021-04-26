@@ -2,16 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Vjezba.Model;
 using Vjezba.Web.Models;
 
 namespace Vjezba.Web.Controllers
 {
+    // https://threejsfundamentals.org/threejs/lessons/threejs-load-obj.html
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

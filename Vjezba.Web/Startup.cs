@@ -28,7 +28,7 @@ namespace Vjezba.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ClientManagerDbContext>(options =>
+            services.AddDbContext<ThreeDModelDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ClientManagerDbContext"),
                     opt => opt.MigrationsAssembly("Vjezba.DAL")));
@@ -39,7 +39,7 @@ namespace Vjezba.Web
                 .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
-                .AddEntityFrameworkStores<ClientManagerDbContext>();
+                .AddEntityFrameworkStores<ThreeDModelDbContext>();
 
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
@@ -55,9 +55,9 @@ namespace Vjezba.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
+            // Adding new mappings
             // provider za .obj file MIME type
             var provider = new FileExtensionContentTypeProvider();
-            // Add new mappings
             provider.Mappings[".obj"] = "text/plain";
 
             app.UseStaticFiles(new StaticFileOptions

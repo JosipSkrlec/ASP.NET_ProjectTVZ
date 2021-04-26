@@ -8,3 +8,10 @@ dotnet ef migrations add Initial --startup-project ../Vjezba.Web --context Clien
 dotnet ef migrations add [sta vec] --startup-project ../Vjezba.Web --context ClientManagerDbContext
 
 dotnet ef database update --startup-project ../Vjezba.Web --context ClientManagerDbContext
+
+// CUSTOM
+dotnet ef migrations add Initial --startup-project ../Vjezba.Web --context ThreeDModelDbContext
+
+dotnet ef migrations add [sta vec] --startup-project ../Vjezba.Web --context ThreeDModelDbContext
+
+dotnet ef database update --startup-project ../Vjezba.Web --context ThreeDModelDbContext

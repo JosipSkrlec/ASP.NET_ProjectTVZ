@@ -15,9 +15,9 @@ namespace Vjezba.Web.Controllers
 {
     public class ClientController : BaseController
     {
-        private ClientManagerDbContext _dbContext;
+        private ThreeDModelDbContext _dbContext;
 
-        public ClientController(ClientManagerDbContext dbContext, UserManager<AppUser> userManager) : base(userManager)
+        public ClientController(ThreeDModelDbContext dbContext, UserManager<AppUser> userManager) : base(userManager)
         {
             this._dbContext = dbContext;
         }
