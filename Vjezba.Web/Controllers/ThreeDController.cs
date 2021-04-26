@@ -26,7 +26,7 @@ namespace Vjezba.Web.Controllers
             this._dbContext = dbContext;
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public IActionResult Index(ThreeDFilterModel filter)
         {
             //var threeDQuery = this._dbContext.threeD.Include(p => p.Id).AsQueryable();
@@ -58,6 +58,7 @@ namespace Vjezba.Web.Controllers
             if (ModelState.IsValid)
             {
                 model.CreatedBy = UserId;
+                model.objAttachment.OBJFilePath = objFilePath;
                 this._dbContext.threeD.Add(model);
                 this._dbContext.SaveChanges();
 
@@ -108,9 +109,6 @@ namespace Vjezba.Web.Controllers
                 file.CopyTo(fs);
             }
         }
-
-
-
 
         private void FillDropdownValues()
         {
