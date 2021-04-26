@@ -210,6 +210,26 @@ namespace Vjezba.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Attachments",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OBJFilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClientID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attachments", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Attachments_Clients_ClientID",
+                        column: x => x.ClientID,
+                        principalTable: "Clients",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Meetings",
                 columns: table => new
                 {
@@ -235,26 +255,6 @@ namespace Vjezba.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OBJAttachment",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OBJFilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OBJAttachment", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_OBJAttachment_Clients_ClientID",
-                        column: x => x.ClientID,
-                        principalTable: "Clients",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "threeD",
                 columns: table => new
                 {
@@ -265,16 +265,16 @@ namespace Vjezba.DAL.Migrations
                     UploadedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryID = table.Column<int>(type: "int", nullable: true),
-                    objAttachmentID = table.Column<int>(type: "int", nullable: true)
+                    objAttachmentID = table.Column<int>(type: "int", nullable: true),
+                    CategoryID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_threeD", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_threeD_OBJAttachment_objAttachmentID",
+                        name: "FK_threeD_Attachments_objAttachmentID",
                         column: x => x.objAttachmentID,
-                        principalTable: "OBJAttachment",
+                        principalTable: "Attachments",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -282,7 +282,7 @@ namespace Vjezba.DAL.Migrations
                         column: x => x.CategoryID,
                         principalTable: "threeDCategoryes",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -355,6 +355,11 @@ namespace Vjezba.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Attachments_ClientID",
+                table: "Attachments",
+                column: "ClientID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clients_CityID",
                 table: "Clients",
                 column: "CityID");
@@ -362,11 +367,6 @@ namespace Vjezba.DAL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Meetings_ClientID",
                 table: "Meetings",
-                column: "ClientID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OBJAttachment_ClientID",
-                table: "OBJAttachment",
                 column: "ClientID");
 
             migrationBuilder.CreateIndex(
@@ -410,7 +410,7 @@ namespace Vjezba.DAL.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "OBJAttachment");
+                name: "Attachments");
 
             migrationBuilder.DropTable(
                 name: "threeDCategoryes");

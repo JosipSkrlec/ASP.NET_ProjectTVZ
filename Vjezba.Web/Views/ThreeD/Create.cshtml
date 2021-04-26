@@ -32,7 +32,7 @@
 
         <div class="form-group">
             <div enctype="multipart/form-data">
-                <div @*asp-for="objAttachment"*@ action="/ThreeD/Upload1" class="dropZone" style="color: cornflowerblue">
+                <div @*asp-for="objAttachment"*@ action="/ThreeD/UploadObjFile" class="dropZone" style="color: cornflowerblue">
                     click to upload 3D model (.obj - file).
                 </div>
             </div>
@@ -40,8 +40,8 @@
 
 
         <div class="form-group">
-            <label class="control-label">Grad</label>
-            <select asp-for="Category" asp-items="ViewBag.PossibleCategoryes" class="form-control"></select>
+            <label class="control-label">Category</label>
+            <select asp-for="CategoryID" asp-items="ViewBag.PossibleCategoryes" class="form-control"></select>
             @*<span asp-validation-for="Category" class="text-danger"></span>*@
         </div>
 

@@ -17,16 +17,20 @@ namespace Vjezba.Model
         public DateTime UploadedDateTime { get; set; }
 
         // zapise se tko je kreiramo i updejtao
-        public String CreatedBy { get; set; }
-        public String UpdatedBy { get; set; }
-
-        [ForeignKey( nameof(ThreeDCategory))]
-        public int? CategoryID { get; set; }
-        public ThreeDCategory Category { get; set; }
+        public string CreatedBy { get; set; }
+        public string UpdatedBy { get; set; }
 
         [ForeignKey(nameof(OBJAttachment))]
         public int? objAttachmentID { get; set; }
         public OBJAttachment objAttachment { get; set; }
+
+        [ForeignKey( nameof(ThreeDCategory))]
+        [Required(ErrorMessage = "Category need to be selected")]
+        public int CategoryID { get; set; }
+        public ThreeDCategory Category { get; set; }
+
+
+
 
     }
 

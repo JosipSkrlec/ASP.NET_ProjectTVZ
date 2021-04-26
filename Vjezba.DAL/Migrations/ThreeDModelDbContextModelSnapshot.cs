@@ -373,7 +373,7 @@ namespace Vjezba.DAL.Migrations
 
                     b.HasIndex("ClientID");
 
-                    b.ToTable("OBJAttachment");
+                    b.ToTable("Attachments");
                 });
 
             modelBuilder.Entity("Vjezba.Model.ThreeD", b =>
@@ -383,7 +383,7 @@ namespace Vjezba.DAL.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("CategoryID")
+                    b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<string>("Comment")
@@ -534,7 +534,9 @@ namespace Vjezba.DAL.Migrations
                 {
                     b.HasOne("Vjezba.Model.ThreeDCategory", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryID");
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Vjezba.Model.OBJAttachment", "objAttachment")
                         .WithMany()
