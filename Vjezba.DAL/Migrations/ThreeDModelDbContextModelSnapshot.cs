@@ -373,7 +373,7 @@ namespace Vjezba.DAL.Migrations
 
                     b.HasIndex("ClientID");
 
-                    b.ToTable("Attachments");
+                    b.ToTable("ThreeDAttachments");
                 });
 
             modelBuilder.Entity("Vjezba.Model.ThreeD", b =>

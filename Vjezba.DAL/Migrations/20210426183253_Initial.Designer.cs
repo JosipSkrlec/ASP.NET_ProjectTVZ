@@ -10,7 +10,7 @@ using Vjezba.DAL;
 namespace Vjezba.DAL.Migrations
 {
     [DbContext(typeof(ThreeDModelDbContext))]
-    [Migration("20210426175708_Initial")]
+    [Migration("20210426183253_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -375,7 +375,7 @@ namespace Vjezba.DAL.Migrations
 
                     b.HasIndex("ClientID");
 
-                    b.ToTable("Attachments");
+                    b.ToTable("ThreeDAttachments");
                 });
 
             modelBuilder.Entity("Vjezba.Model.ThreeD", b =>

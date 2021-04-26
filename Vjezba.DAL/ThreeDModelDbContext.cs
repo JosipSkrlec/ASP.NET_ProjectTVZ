@@ -14,7 +14,7 @@ namespace Vjezba.DAL
 
         public DbSet<ThreeD> threeD { get; set; }
         public DbSet<ThreeDCategory> threeDCategoryes { get; set; }
-        public DbSet<OBJAttachment> Attachments { get; set; }
+        public DbSet<OBJAttachment> ThreeDAttachments { get; set; }
 
         public DbSet<Client> Clients { get; set; }
         public DbSet<City> Cities { get; set; }

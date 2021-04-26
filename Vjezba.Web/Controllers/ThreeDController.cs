@@ -31,6 +31,7 @@ namespace Vjezba.Web.Controllers
         //[AllowAnonymous]
         public IActionResult Index(ThreeDFilterModel filter)
         {
+            var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment).ToList();
             //var threeDQuery = this._dbContext.threeD.Include(p => p.Id).AsQueryable();
 
             //filter = filter ?? new ThreeDFilterModel();
@@ -43,7 +44,7 @@ namespace Vjezba.Web.Controllers
 
             //var model = threeDQuery.ToList();
             //return View("Index", model);
-            return View("Index");
+            return View("Index",model: ThreeDQuery);
         }
 
         //[Authorize(Roles = "Manager,Admin")]
@@ -85,12 +86,15 @@ namespace Vjezba.Web.Controllers
         //[Authorize]
         public IActionResult Details(int? id = null)
         {
-            var ThreeD = this._dbContext.Attachments
-                .Where(p => p.ID == id)
-                .FirstOrDefault();
+            //var ThreeD = this._dbContext.ThreeDAttachments
+            //    .Where(p => p.ID == id)
+            //    .FirstOrDefault();
 
+            var ThreeD1 = this._dbContext.threeD
+                .Include(t => t.objAttachment)
+            .FirstOrDefault(p => p.objAttachmentID == id);
 
-            ViewBag.FilePath = ThreeD.OBJFilePath;
+            ViewBag.FilePath = ThreeD1.objAttachment.OBJFilePath;
             return View("_3DModelView");
         }
 
@@ -109,6 +113,7 @@ namespace Vjezba.Web.Controllers
                 ThreeDQuery = ThreeDQuery.Where(p => p.Name.ToLower().Contains(filter.Category.ToLower()));
 
             var model = ThreeDQuery.ToList();
+
             return PartialView("_IndexTable", model: model);
         }
 

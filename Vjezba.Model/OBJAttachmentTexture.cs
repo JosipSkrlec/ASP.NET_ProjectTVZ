@@ -2,11 +2,11 @@
 
 namespace Vjezba.Model
 {
-    public class OBJAttachment
+    public class OBJAttachmentTexture
     {
         [Key]
         public int ID { get; set; }
-        public string OBJFilePath { get; set; }
+        public string TexturePath { get; set; }
 
 
     }

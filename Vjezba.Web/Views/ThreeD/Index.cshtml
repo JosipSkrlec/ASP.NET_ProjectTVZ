@@ -14,6 +14,7 @@
 <h1>Popis 3D modela</h1>
 <div style="margin-top: 20px; margin-bottom: 10px;">
     <partial name="_ThreeDFilter" model="new ThreeDFilterModel()" />
+
 </div>
 
 <div id="table-cont">
@@ -22,7 +23,7 @@
 
 @section Scripts{
     <script>
-		$("#filterBtn").click(function () {
+        $("#filterBtn").click(function () {
 			$.ajax({
 				url: "@Url.Action("AjaxSearch")",
 				method: "POST",

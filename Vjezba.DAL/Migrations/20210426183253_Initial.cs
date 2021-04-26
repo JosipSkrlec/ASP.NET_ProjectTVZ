@@ -210,26 +210,6 @@ namespace Vjezba.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attachments",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OBJFilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Attachments", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Attachments_Clients_ClientID",
-                        column: x => x.ClientID,
-                        principalTable: "Clients",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Meetings",
                 columns: table => new
                 {
@@ -255,6 +235,26 @@ namespace Vjezba.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ThreeDAttachments",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OBJFilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClientID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ThreeDAttachments", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_ThreeDAttachments_Clients_ClientID",
+                        column: x => x.ClientID,
+                        principalTable: "Clients",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "threeD",
                 columns: table => new
                 {
@@ -272,9 +272,9 @@ namespace Vjezba.DAL.Migrations
                 {
                     table.PrimaryKey("PK_threeD", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_threeD_Attachments_objAttachmentID",
+                        name: "FK_threeD_ThreeDAttachments_objAttachmentID",
                         column: x => x.objAttachmentID,
-                        principalTable: "Attachments",
+                        principalTable: "ThreeDAttachments",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -355,11 +355,6 @@ namespace Vjezba.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attachments_ClientID",
-                table: "Attachments",
-                column: "ClientID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Clients_CityID",
                 table: "Clients",
                 column: "CityID");
@@ -378,6 +373,11 @@ namespace Vjezba.DAL.Migrations
                 name: "IX_threeD_objAttachmentID",
                 table: "threeD",
                 column: "objAttachmentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ThreeDAttachments_ClientID",
+                table: "ThreeDAttachments",
+                column: "ClientID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -410,7 +410,7 @@ namespace Vjezba.DAL.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Attachments");
+                name: "ThreeDAttachments");
 
             migrationBuilder.DropTable(
                 name: "threeDCategoryes");
