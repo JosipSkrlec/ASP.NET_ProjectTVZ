@@ -11,9 +11,7 @@ namespace Vjezba.Web.Controllers
 {
     public class BaseController : Controller
     {
-        public String UserId { get; }
-
-        
+        public String UserId { get; }        
         public BaseController(UserManager<AppUser> userManager)
         {
             try
@@ -23,8 +21,7 @@ namespace Vjezba.Web.Controllers
             catch (Exception e)
             {
                 UserId = null;
-            }
-            
+            }            
         }
     }
 }
