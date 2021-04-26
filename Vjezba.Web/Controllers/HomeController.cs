@@ -9,7 +9,6 @@ using Vjezba.Web.Models;
 
 namespace Vjezba.Web.Controllers
 {
-    // https://threejsfundamentals.org/threejs/lessons/threejs-load-obj.html
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

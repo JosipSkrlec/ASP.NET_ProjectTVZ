@@ -36,4 +36,10 @@
     <ProjectReference Include="..\Vjezba.DAL\Vjezba.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\dropZone\dist\dropzone - Copy.js.map">
+      <DependentUpon>dropzone.js.map</DependentUpon>
+    </Content>
+  </ItemGroup>
+
 </Project>

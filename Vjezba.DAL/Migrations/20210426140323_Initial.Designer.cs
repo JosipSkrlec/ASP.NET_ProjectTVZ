@@ -10,7 +10,7 @@ using Vjezba.DAL;
 namespace Vjezba.DAL.Migrations
 {
     [DbContext(typeof(ThreeDModelDbContext))]
-    [Migration("20210426091927_Initial")]
+    [Migration("20210426140323_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -225,26 +225,6 @@ namespace Vjezba.DAL.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Vjezba.Model.Attachment", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("ClientID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("File")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ClientID");
-
-                    b.ToTable("Attachment");
-                });
-
             modelBuilder.Entity("Vjezba.Model.City", b =>
                 {
                     b.Property<int>("ID")
@@ -263,17 +243,12 @@ namespace Vjezba.DAL.Migrations
                         new
                         {
                             ID = 1,
-                            Name = "Zagreb"
+                            Name = "Varazdin"
                         },
                         new
                         {
                             ID = 2,
-                            Name = "Velika Gorica"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Name = "Vrbovsko"
+                            Name = "Zagreb"
                         });
                 });
 
@@ -383,6 +358,102 @@ namespace Vjezba.DAL.Migrations
                     b.ToTable("Meetings");
                 });
 
+            modelBuilder.Entity("Vjezba.Model.OBJAttachment", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("ClientID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OBJFilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ClientID");
+
+                    b.ToTable("OBJAttachment");
+                });
+
+            modelBuilder.Entity("Vjezba.Model.ThreeD", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UploadedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("objAttachmentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.HasIndex("objAttachmentID");
+
+                    b.ToTable("threeD");
+                });
+
+            modelBuilder.Entity("Vjezba.Model.ThreeDCategory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("threeDCategoryes");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Game ready"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Render ready"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Low poly"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Name = "High poly"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -434,13 +505,6 @@ namespace Vjezba.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Vjezba.Model.Attachment", b =>
-                {
-                    b.HasOne("Vjezba.Model.Client", null)
-                        .WithMany("Attachments")
-                        .HasForeignKey("ClientID");
-                });
-
             modelBuilder.Entity("Vjezba.Model.Client", b =>
                 {
                     b.HasOne("Vjezba.Model.City", "City")
@@ -459,6 +523,28 @@ namespace Vjezba.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("Vjezba.Model.OBJAttachment", b =>
+                {
+                    b.HasOne("Vjezba.Model.Client", null)
+                        .WithMany("Attachments")
+                        .HasForeignKey("ClientID");
+                });
+
+            modelBuilder.Entity("Vjezba.Model.ThreeD", b =>
+                {
+                    b.HasOne("Vjezba.Model.ThreeDCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID");
+
+                    b.HasOne("Vjezba.Model.OBJAttachment", "objAttachment")
+                        .WithMany()
+                        .HasForeignKey("objAttachmentID");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("objAttachment");
                 });
 
             modelBuilder.Entity("Vjezba.Model.City", b =>

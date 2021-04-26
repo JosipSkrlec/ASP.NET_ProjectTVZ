@@ -12,6 +12,9 @@ namespace Vjezba.DAL
 
         }
 
+        public DbSet<ThreeD> threeD { get; set; }
+        public DbSet<ThreeDCategory> threeDCategoryes { get; set; }
+
         public DbSet<Client> Clients { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
@@ -20,11 +23,17 @@ namespace Vjezba.DAL
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<City>().HasData(new City { ID = 1, Name = "Zagreb" });
-            modelBuilder.Entity<City>().HasData(new City { ID = 2, Name = "Velika Gorica" });
-            modelBuilder.Entity<City>().HasData(new City { ID = 3, Name = "Vrbovsko" });
-            modelBuilder.Entity<Client>().HasData(new Client { ID = 1, FirstName = "Marko", LastName = "Markic", Email= "mmarkic@index.hr", CityID = 1});
-            modelBuilder.Entity<Client>().HasData(new Client { ID = 2, FirstName = "Ana", LastName = "Anic", Email = "aanic@yahoo.com", CityID = 2});
+            modelBuilder.Entity<ThreeDCategory>().HasData(new ThreeDCategory { ID = 1, Name = "Game ready" });
+            modelBuilder.Entity<ThreeDCategory>().HasData(new ThreeDCategory { ID = 2, Name = "Render ready" });
+            modelBuilder.Entity<ThreeDCategory>().HasData(new ThreeDCategory { ID = 3, Name = "Low poly" });
+            modelBuilder.Entity<ThreeDCategory>().HasData(new ThreeDCategory { ID = 4, Name = "High poly" });
+
+
+            modelBuilder.Entity<City>().HasData(new City { ID = 1, Name = "Varazdin" });
+            modelBuilder.Entity<City>().HasData(new City { ID = 2, Name = "Zagreb" });
+
+            modelBuilder.Entity<Client>().HasData(new Client { ID = 1, FirstName = "Marko", LastName = "Markic", Email = "mmarkic@index.hr", CityID = 1 });
+            modelBuilder.Entity<Client>().HasData(new Client { ID = 2, FirstName = "Ana", LastName = "Anic", Email = "aanic@yahoo.com", CityID = 2 });
         }
 
     }

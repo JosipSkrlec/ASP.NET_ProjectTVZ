@@ -1,12 +1,38 @@
-﻿@{ ViewData["Title"] = "Home Page"; }
+﻿@using Vjezba.Model
+@model List<ThreeD>
 
-<div class="text-center">
-    <h1 class="display-4">.NET projekt (Josip Škrlec)</h1>
-    <p>prikaz dodavanje delete 3D modela...</p>
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<style>
+	.tab-pane {
+		padding: 20px;
+	}
+</style>
+
+<h1>Popis klijenata</h1>
+<div style="margin-top: 20px; margin-bottom: 10px;">
+	<partial name="_ThreeDFilter" model="new ThreeDFilterModel()" />
 </div>
 
+<div id="table-cont">
 
-<div>
-    <partial name="_3DModelView" />
-    @*@Html.Partial("3DModelView")*@
 </div>
+
+@section Scripts{ 
+	<script>
+		$("#filterBtn").click(function () {
+			$.ajax({
+				url: "@Url.Action("IndexAjax")",
+				method: "POST",
+				data: $("#filter-form").serialize(),
+                contentType: "application/json",
+				success: function(html) {
+					console.log(html);
+					$("#table-cont").html(html);
+				},
+            })
+        })
+	</script>
+}

@@ -148,11 +148,11 @@ namespace Vjezba.Web.Controllers
             String filePath = saveFile(file);
 
             Client client = _dbContext.Clients.Find(id);
-            Attachment attachment = new Attachment();
-            attachment.File = filePath;
+            OBJAttachment attachment = new OBJAttachment();
+            attachment.OBJFilePath = filePath;
             if (client.Attachments == null)
             {
-                client.Attachments = new List<Attachment>();
+                client.Attachments = new List<OBJAttachment>();
             }
             client.Attachments.Add(attachment);
             _dbContext.SaveChanges();

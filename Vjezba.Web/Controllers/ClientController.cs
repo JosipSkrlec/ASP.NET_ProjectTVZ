@@ -132,9 +132,7 @@ namespace Vjezba.Web.Controllers
 
             var model = clientQuery.ToList();
             return PartialView("_IndexTable", model: model);
-        }
-
-        
+        }        
 
         private void FillDropdownValues()
         {
@@ -142,7 +140,7 @@ namespace Vjezba.Web.Controllers
 
             //Polje je opcionalno
             var listItem = new SelectListItem();
-            listItem.Text = "- odaberite -";
+            listItem.Text = "- 3D/Category -";
             listItem.Value = "";
             selectItems.Add(listItem);
 

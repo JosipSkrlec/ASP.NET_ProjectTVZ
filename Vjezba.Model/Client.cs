@@ -42,7 +42,7 @@ namespace Vjezba.Model
 
         public virtual ICollection<Meeting> Meetings { get; set; }
 
-        public virtual ICollection<Attachment> Attachments { get; set; }
+        public virtual ICollection<OBJAttachment> Attachments { get; set; }
 
     }
 }

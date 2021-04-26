@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset=UTF-8 />
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/dropZone/dist/dropzone.css">
+    <link rel="stylesheet" href="~/dropZone/dist/min/dropzone.min.css">
+    <link rel="stylesheet" href="~/dropZone/dist/min/basic.min.css">
+
+    <script src="~/dropZone/dist/dropzone.js"></script>
+    <script src="~/dropZone/dist/dropzone.min.js"></script>
+    @*<script src="~/dropZone/dist/dropzone-amd-module.js"></script>*@
+
+</head>
+
+<body>
+
+    <form id="form2" method="post" enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left">
+
+        <div class="form-group">
+
+            <div class="col-md-6" id="dropZone">
+                <div action="/ThreeD/Upload" class="dropZone">
+
+                    Drop .OBJ here or click to upload.<br>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <script type="text/javascript">
+        var dropz = new Dropzone(".dropZone", {
+            maxFiles: 1,
+            maxFilesize: 50,
+            acceptedFiles: ".obj"
+        });
+            //Dropzone.options.dropzone = {
+            //    accept: function (file, done) {
+            //        console.log(file);
+            //        if (file.type != ".obj") {
+            //            done("Error! Files of this type are not accepted");
+            //        }
+            //        else { done(); }
+            //    }
+            //}
+    </script>
+
+
+</body>
+
+</html>
+
+
+@*<form id="form2" method="post" enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left">
+        <div class="form-group">
+
+            <label class="control-label col-md-2" for="first-name">
+
+                Upload 3D model (.OBJ file) <span class="required">*</span>
+
+            </label>
+
+            <div class="col-md-6" id="dropzone">
+
+                <div action="/ThreeD/Upload" class="dropzone" id="uploader">
+
+                    Drop .OBJ here or click to upload.<br>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>*@
