@@ -44,7 +44,7 @@ namespace Vjezba.Web.Controllers
 
             //var model = threeDQuery.ToList();
             //return View("Index", model);
-            return View("Index",model: ThreeDQuery);
+            return View("Index", model: ThreeDQuery);
         }
 
         //[Authorize(Roles = "Manager,Admin")]
@@ -86,15 +86,13 @@ namespace Vjezba.Web.Controllers
         //[Authorize]
         public IActionResult Details(int? id = null)
         {
-            //var ThreeD = this._dbContext.ThreeDAttachments
-            //    .Where(p => p.ID == id)
-            //    .FirstOrDefault();
 
-            var ThreeD1 = this._dbContext.threeD
+            var ThreeD = this._dbContext.threeD
                 .Include(t => t.objAttachment)
             .FirstOrDefault(p => p.objAttachmentID == id);
 
-            ViewBag.FilePath = ThreeD1.objAttachment.OBJFilePath;
+            ViewBag.FilePath = ThreeD.objAttachment.OBJFilePath;
+            ViewBag.FileComment = ThreeD.Comment;
             return View("_3DModelView");
         }
 
@@ -102,18 +100,27 @@ namespace Vjezba.Web.Controllers
         [HttpPost]
         public IActionResult AjaxSearch(ThreeDFilterModel filter)
         {
-            var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment).AsQueryable();
+            var ThreeDQuery = this._dbContext.threeD.Include(p => p.objAttachment)
+                .Include(c => c.Category)
+                .AsQueryable();
 
             filter = filter ?? new ThreeDFilterModel();
 
             if (!string.IsNullOrWhiteSpace(filter.Name))
+            {
                 ThreeDQuery = ThreeDQuery.Where(p => p.Name.ToLower().Contains(filter.Name.ToLower()));
-
+            }
             if (!string.IsNullOrWhiteSpace(filter.Category))
-                ThreeDQuery = ThreeDQuery.Where(p => p.Name.ToLower().Contains(filter.Category.ToLower()));
+            {
+                ThreeDQuery = ThreeDQuery.Where(p => p.Category.Name.ToLower().Contains(filter.Category.ToLower()));
+            }               
 
             var model = ThreeDQuery.ToList();
 
+            //if(string.IsNullOrEmpty(filter.Name) && string.IsNullOrEmpty(filter.Category))
+            //{
+            //        return PartialView("_IndexTable", model: model);
+            //}
             return PartialView("_IndexTable", model: model);
         }
 

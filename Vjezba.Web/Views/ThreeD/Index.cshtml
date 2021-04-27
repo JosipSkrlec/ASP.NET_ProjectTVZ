@@ -21,6 +21,7 @@
 
 </div>
 
+
 @section Scripts{
     <script>
         $("#filterBtn").click(function () {
@@ -28,12 +29,25 @@
 				url: "@Url.Action("AjaxSearch")",
 				method: "POST",
 				data: $("#filter-form").serialize(),
-                contentType: "application/json",
 				success: function(html) {
 					console.log(html);
 					$("#table-cont").html(html);
 				},
             })
         })
+
+        $(document).ready(function () {
+            $.ajax({
+             url: "@Url.Action("AjaxSearch")",
+				method: "POST",
+				data: $("#filter-form").serialize(),
+				success: function(html) {
+					console.log(html);
+					$("#table-cont").html(html);
+				},
+            });
+        });
+
+
     </script>
 }

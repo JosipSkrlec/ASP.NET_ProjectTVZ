@@ -1,28 +1,31 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset=UTF-8 />
-    @* <link rel="stylesheet" type="text/css" href="styles.css" />*@
 </head>
+
 <body>
     <script src="~/js/three.js"></script>
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/104/three.js"></script>*@
     <script src="~/js/OrbitControls.js"></script>
     <script src="~/js/OBJLoader.js"></script>
 
+    <div>
+        @ViewBag.FileComment
+    </div>
 
-    @*<script src="https://unpkg.com/three@0.87.1/build/three.js"></script>
-        <script src="https://unpkg.com/three@0.87.1/examples/js/controls/OrbitControls.js"></script>
-        <script src="https://unpkg.com/three@0.87.1/examples/js/loaders/GLTFLoader.js"></script>*@
+    <div>
+        <p>Download your file Here:</p>
+        <a href="@ViewBag.FilePath" download>Download Model Here!</a>
+    </div>
 
     <canvas id="c" style=" width: 100%; height: 100%; display: block;"></canvas>
-
 
     @section Scripts{
         <script>
             @*var objModel =@Html.Raw(Json.Serialize(Model));*@
 
-            function main() {
+            function Show3DModel() {
             var FilePath='@ViewBag.FilePath';
             const canvas = document.querySelector('#c');
             const renderer = new THREE.WebGLRenderer({ canvas });
@@ -129,11 +132,22 @@
             }
 
             requestAnimationFrame(render);
-        }
+            }
 
-        main();
+            function Download(url) {
+                document.getElementById('my_iframe').src = url;
+            };
 
-        </script>
+            $(document).ready(function () {
+                $("#link").click(function (e) {
+                    e.preventDefault();
+                    link.target = '@ViewBag.FilePath';
+        
+                });
+            });
+
+            Show3DModel();
+
         </script>
     }
 
