@@ -236,6 +236,23 @@ namespace Vjezba.DAL.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("ThreeDAttachments");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            OBJFilePath = "/3DModels/DefaultCube.obj"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            OBJFilePath = "/3DModels/DefaultCube.obj"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            OBJFilePath = "/3DModels/DefaultCube.obj"
+                        });
                 });
 
             modelBuilder.Entity("Vjezba.Model.ThreeD", b =>
@@ -275,6 +292,38 @@ namespace Vjezba.DAL.Migrations
                     b.HasIndex("objAttachmentID");
 
                     b.ToTable("threeD");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            CategoryID = 1,
+                            Comment = "Lorem Ipsum1",
+                            CreatedBy = "Josip Skrlec1",
+                            Name = "Object1",
+                            UploadedDateTime = new DateTime(2021, 4, 27, 14, 2, 21, 621, DateTimeKind.Local).AddTicks(9989),
+                            objAttachmentID = 3
+                        },
+                        new
+                        {
+                            ID = 2,
+                            CategoryID = 3,
+                            Comment = "Lorem Ipsum2",
+                            CreatedBy = "Josip Skrlec2",
+                            Name = "Object2",
+                            UploadedDateTime = new DateTime(2021, 4, 27, 14, 2, 21, 626, DateTimeKind.Local).AddTicks(1976),
+                            objAttachmentID = 2
+                        },
+                        new
+                        {
+                            ID = 3,
+                            CategoryID = 2,
+                            Comment = "Lorem Ipsum3",
+                            CreatedBy = "Josip Skrlec3",
+                            Name = "Object3",
+                            UploadedDateTime = new DateTime(2021, 4, 27, 14, 2, 21, 626, DateTimeKind.Local).AddTicks(2079),
+                            objAttachmentID = 1
+                        });
                 });
 
             modelBuilder.Entity("Vjezba.Model.ThreeDCategory", b =>

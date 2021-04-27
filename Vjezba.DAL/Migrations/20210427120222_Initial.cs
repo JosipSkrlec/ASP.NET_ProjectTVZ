@@ -191,8 +191,8 @@ namespace Vjezba.DAL.Migrations
                     UploadedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    objAttachmentID = table.Column<int>(type: "int", nullable: true),
-                    CategoryID = table.Column<int>(type: "int", nullable: false)
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
+                    objAttachmentID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -212,6 +212,16 @@ namespace Vjezba.DAL.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "ThreeDAttachments",
+                columns: new[] { "ID", "OBJFilePath" },
+                values: new object[,]
+                {
+                    { 1, "/3DModels/DefaultCube.obj" },
+                    { 2, "/3DModels/DefaultCube.obj" },
+                    { 3, "/3DModels/DefaultCube.obj" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "threeDCategoryes",
                 columns: new[] { "ID", "Name" },
                 values: new object[,]
@@ -221,6 +231,21 @@ namespace Vjezba.DAL.Migrations
                     { 3, "Low poly" },
                     { 4, "High poly" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "threeD",
+                columns: new[] { "ID", "CategoryID", "Comment", "CreatedBy", "Name", "UpdatedBy", "UploadedDateTime", "objAttachmentID" },
+                values: new object[] { 1, 1, "Lorem Ipsum1", "Josip Skrlec1", "Object1", null, new DateTime(2021, 4, 27, 14, 2, 21, 621, DateTimeKind.Local).AddTicks(9989), 3 });
+
+            migrationBuilder.InsertData(
+                table: "threeD",
+                columns: new[] { "ID", "CategoryID", "Comment", "CreatedBy", "Name", "UpdatedBy", "UploadedDateTime", "objAttachmentID" },
+                values: new object[] { 3, 2, "Lorem Ipsum3", "Josip Skrlec3", "Object3", null, new DateTime(2021, 4, 27, 14, 2, 21, 626, DateTimeKind.Local).AddTicks(2079), 1 });
+
+            migrationBuilder.InsertData(
+                table: "threeD",
+                columns: new[] { "ID", "CategoryID", "Comment", "CreatedBy", "Name", "UpdatedBy", "UploadedDateTime", "objAttachmentID" },
+                values: new object[] { 2, 3, "Lorem Ipsum2", "Josip Skrlec2", "Object2", null, new DateTime(2021, 4, 27, 14, 2, 21, 626, DateTimeKind.Local).AddTicks(1976), 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

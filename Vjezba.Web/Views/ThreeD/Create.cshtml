@@ -1,10 +1,31 @@
 ﻿@model Vjezba.Model.ThreeD
 
     <head>
-        <link rel="stylesheet" href="~/css/bootstrap.min.css">
+        @*<link rel="stylesheet" href="~/css/bootstrap.min.css">
         <link rel="stylesheet" href="~/dropZone/dist/dropzone.css">
         <link rel="stylesheet" href="~/dropZone/dist/min/dropzone.min.css">
-        <link rel="stylesheet" href="~/dropZone/dist/min/basic.min.css">
+        <link rel="stylesheet" href="~/dropZone/dist/min/basic.min.css">*@7
+
+        <style>
+            area:hover {
+                cursor: pointer;
+            }
+            .area {
+                width: 45em;
+                padding: 15px;
+                border: 1px solid #333;
+                background: rgba(0,0,0,0.7);
+            }
+            #dropZone {
+                border: 2px dashed #bbb;
+                -webkit-border-radius: 5px;
+                border-radius: 5px;
+                padding: 50px;
+                text-align: center;
+                font: 21pt bold arial;
+                color: #bbb;
+            }
+        </style>
 
         <script src="~/dropZone/dist/dropzone.js"></script>
         <script src="~/dropZone/dist/dropzone.min.js"></script>
@@ -23,26 +44,22 @@
             <span asp-validation-for="Comment" class="text-danger"></span>
         </div>
 
-        @*@{
-            // Malo hacky, ali funkcionira dobro za sve zapadne kulture, primjer moćnijih kultura su US ili RH.
-            var pattern = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower();
-            pattern = pattern.Replace("DD", "D").Replace("D", "DD");
-            pattern = pattern.Replace("MM", "M").Replace("M", "MM");
-        }*@
-
         <div class="form-group">
             <div enctype="multipart/form-data">
-                <div @*asp-for="objAttachment"*@ action="/ThreeD/UploadObjFile" class="dropZone" style="color: cornflowerblue">
-                    click to upload 3D model (.obj - file).
+
+                <div class="area">
+                    <div action="/ThreeD/UploadObjFile" id="dropZone" class="dropZone" style="color: cornflowerblue">
+                        click here to upload 3D model (.obj).
+                    </div>
                 </div>
+
             </div>
         </div>
-
 
         <div class="form-group">
             <label class="control-label">Category</label>
             <select asp-for="CategoryID" asp-items="ViewBag.PossibleCategoryes" class="form-control"></select>
-            @*<span asp-validation-for="Category" class="text-danger"></span>*@
+            <span asp-validation-for="CategoryID" class="text-danger"></span>
         </div>
 
         <div class="form-group">

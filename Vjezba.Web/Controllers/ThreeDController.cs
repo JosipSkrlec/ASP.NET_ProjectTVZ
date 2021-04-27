@@ -54,6 +54,7 @@ namespace Vjezba.Web.Controllers
             return View();
         }
 
+        [Authorize(Roles = "User")]
         //[Authorize(Roles = "Manager,Admin")]
         [HttpPost]
         public IActionResult Create(ThreeD model)
@@ -83,20 +84,20 @@ namespace Vjezba.Web.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Admin,User")]
         public IActionResult Details(int? id = null)
         {
-
             var ThreeD = this._dbContext.threeD
                 .Include(t => t.objAttachment)
             .FirstOrDefault(p => p.objAttachmentID == id);
 
             ViewBag.FilePath = ThreeD.objAttachment.OBJFilePath;
             ViewBag.FileComment = ThreeD.Comment;
+            ViewBag.FileDateModified = ThreeD.UploadedDateTime;
             return View("_3DModelView");
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult AjaxSearch(ThreeDFilterModel filter)
         {
@@ -117,10 +118,6 @@ namespace Vjezba.Web.Controllers
 
             var model = ThreeDQuery.ToList();
 
-            //if(string.IsNullOrEmpty(filter.Name) && string.IsNullOrEmpty(filter.Category))
-            //{
-            //        return PartialView("_IndexTable", model: model);
-            //}
             return PartialView("_IndexTable", model: model);
         }
 
@@ -128,12 +125,6 @@ namespace Vjezba.Web.Controllers
         public void UploadObjFile(IFormFile file)
         {
             var FileDic = @"wwwroot\3DModels";
-
-            //if (!Directory.Exists(FileDic))
-            //{
-            //    Directory.CreateDirectory(FileDic);
-            //}
-
             var fileName = file.FileName;
             var filePath = Path.Combine(FileDic, fileName);
 
@@ -144,7 +135,6 @@ namespace Vjezba.Web.Controllers
                 file.CopyTo(fs);
             }
         }
-
         private void FillDropdownValues()
         {
             var selectItems = new List<SelectListItem>();
@@ -157,13 +147,9 @@ namespace Vjezba.Web.Controllers
             foreach (var category in this._dbContext.threeDCategoryes)
             {
                 listItem = new SelectListItem(category.Name, category.ID.ToString());
-                selectItems.Add(listItem);
-      
+                selectItems.Add(listItem);      
             }
-
             ViewBag.PossibleCategoryes = selectItems;
         }
-
     }
-
 }
