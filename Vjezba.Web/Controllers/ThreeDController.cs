@@ -80,6 +80,8 @@ namespace Vjezba.Web.Controllers
             else
             {
                 this.FillDropdownValues();
+                // modelstate se ponistava tako da prilikom load-a ne prikaze validaciju
+                ModelState.Clear();
                 return View();
             }
         }

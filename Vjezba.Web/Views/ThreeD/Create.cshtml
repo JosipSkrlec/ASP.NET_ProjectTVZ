@@ -1,76 +1,95 @@
 ﻿@model Vjezba.Model.ThreeD
 
-    <head>
-        @*<link rel="stylesheet" href="~/css/bootstrap.min.css">
+<head>
+    @*<link rel="stylesheet" href="~/css/bootstrap.min.css">
         <link rel="stylesheet" href="~/dropZone/dist/dropzone.css">
         <link rel="stylesheet" href="~/dropZone/dist/min/dropzone.min.css">
-        <link rel="stylesheet" href="~/dropZone/dist/min/basic.min.css">*@7
+        <link rel="stylesheet" href="~/dropZone/dist/min/basic.min.css">*@
+    <link rel="stylesheet" href="~/css/Blinking.css">
 
-        <style>
-            area:hover {
-                cursor: pointer;
-            }
-            .area {
-                width: 45em;
-                padding: 15px;
-                border: 1px solid #333;
-                background: rgba(0,0,0,0.7);
-            }
-            #dropZone {
-                border: 2px dashed #bbb;
-                -webkit-border-radius: 5px;
-                border-radius: 5px;
-                padding: 50px;
-                text-align: center;
-                font: 21pt bold arial;
-                color: #bbb;
-            }
-        </style>
+    <style>
+        .area:hover {
+            cursor: pointer;
+        }
 
-        <script src="~/dropZone/dist/dropzone.js"></script>
-        <script src="~/dropZone/dist/dropzone.min.js"></script>
+        .area {
+            width: 45em;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 25px;
+            background: rgba(0,0,0,0.7);
+        }
 
-    </head>
+        #dropZone {
+            border: 2px dashed #bbb;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            padding: 50px;
+            text-align: center;
+            font: 21pt bold arial;
+            color: #bbb;
+        }
+    </style>
 
-    <form action="Create" method="post">
-        <div class="form-group">
-            <label class="control-label">Name of 3D model</label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label class="control-label">Short comment: </label>
-            <input asp-for="Comment" class="form-control" />
-            <span asp-validation-for="Comment" class="text-danger"></span>
-        </div>
+    <script src="~/dropZone/dist/dropzone.js"></script>
+    <script src="~/dropZone/dist/dropzone.min.js"></script>
 
+</head>
+
+<form action="Create" method="post">
+
+    <div class="form-group">
+        <label class="control-label">Name of 3D model</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Short comment: </label>
+        <input asp-for="Comment" class="form-control" />
+        <span asp-validation-for="Comment" class="text-danger"></span>
+    </div>
+
+    <div align="center">
         <div class="form-group">
             <div enctype="multipart/form-data">
 
                 <div class="area">
                     <div action="/ThreeD/UploadObjFile" id="dropZone" class="dropZone" style="color: cornflowerblue">
-                        click here to upload 3D model (.obj).
+                        <p class="blinking">click here to upload 3D model (.obj)</p>
                     </div>
                 </div>
 
             </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            <label class="control-label">Category</label>
-            <select asp-for="CategoryID" asp-items="ViewBag.PossibleCategoryes" class="form-control"></select>
-            <span asp-validation-for="CategoryID" class="text-danger"></span>
-        </div>
+    <div class="form-group">
+        <label class="control-label">Category</label>
+        <select asp-for="CategoryID" asp-items="ViewBag.PossibleCategoryes" class="form-control"></select>
+        <span asp-validation-for="CategoryID" class="text-danger"></span>
+    </div>
 
-        <div class="form-group">
-            <input type="submit" value="Save new model" class="btn btn-outline-success" />
-        </div>
-    </form>
+    <div class="form-group">
+        <input type="submit" value="Save new model" class="btn btn-outline-success" />
+    </div>
+</form>
 
-    <script type="text/javascript">
-        var dropz = new Dropzone(".dropZone", {
-            maxFiles: 1,
-            maxFilesize: 50,
-            acceptedFiles: ".obj"
-        });
-    </script>
+<script type="text/javascript">
+
+    var dropz = new Dropzone(".dropZone", {
+        maxFiles: 1,
+        maxFilesize: 25,
+        acceptedFiles: ".obj",
+    });
+
+    dropz.on("success", function (file) {
+        $(".dz-success-mark svg").css("display", "none");
+        $(".dz-error-mark").css("display", "none");
+    });
+    dropz.on("error", function (file) {
+        $(".dz-error-mark svg").css("display", "none");
+        $(".dz-success-mark").css("display", "none");
+    });
+
+</script>

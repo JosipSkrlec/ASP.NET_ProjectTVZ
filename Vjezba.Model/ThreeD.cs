@@ -10,8 +10,10 @@ namespace Vjezba.Model
 
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
+
         [Required(ErrorMessage = "Comment is required")]
         public string Comment { get; set; }
+
         public DateTime UploadedDateTime { get; set; }
 
         public string CreatedBy { get; set; }
