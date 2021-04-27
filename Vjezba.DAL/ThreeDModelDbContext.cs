@@ -12,13 +12,15 @@ namespace Vjezba.DAL
 
         }
 
+        //modelBuilder.Entity<City>().HasData(new City { ID = 1, Name = "Varazdin" });
+        //modelBuilder.Entity<City>().HasData(new City { ID = 2, Name = "Zagreb" });
+
+        //modelBuilder.Entity<Client>().HasData(new Client { ID = 1, FirstName = "Marko", LastName = "Markic", Email = "mmarkic@index.hr", CityID = 1 });
+        //modelBuilder.Entity<Client>().HasData(new Client { ID = 2, FirstName = "Ana", LastName = "Anic", Email = "aanic@yahoo.com", CityID = 2 });
+
         public DbSet<ThreeD> threeD { get; set; }
         public DbSet<ThreeDCategory> threeDCategoryes { get; set; }
         public DbSet<OBJAttachment> ThreeDAttachments { get; set; }
-
-        public DbSet<Client> Clients { get; set; }
-        public DbSet<City> Cities { get; set; }
-        public DbSet<Meeting> Meetings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,12 +31,6 @@ namespace Vjezba.DAL
             modelBuilder.Entity<ThreeDCategory>().HasData(new ThreeDCategory { ID = 3, Name = "Low poly" });
             modelBuilder.Entity<ThreeDCategory>().HasData(new ThreeDCategory { ID = 4, Name = "High poly" });
 
-
-            modelBuilder.Entity<City>().HasData(new City { ID = 1, Name = "Varazdin" });
-            modelBuilder.Entity<City>().HasData(new City { ID = 2, Name = "Zagreb" });
-
-            modelBuilder.Entity<Client>().HasData(new Client { ID = 1, FirstName = "Marko", LastName = "Markic", Email = "mmarkic@index.hr", CityID = 1 });
-            modelBuilder.Entity<Client>().HasData(new Client { ID = 2, FirstName = "Ana", LastName = "Anic", Email = "aanic@yahoo.com", CityID = 2 });
         }
 
     }

@@ -9,14 +9,16 @@
     <script src="~/js/three.js"></script>
     <script src="~/js/OrbitControls.js"></script>
     <script src="~/js/OBJLoader.js"></script>
-
+        
     <div>
+        <p>Short about that 3D model:</p>
         @ViewBag.FileComment
     </div>
 
     <div>
-        <p>Download your file Here:</p>
-        <a href="@ViewBag.FilePath" download>Download Model Here!</a>
+        <p>
+            <a href="@ViewBag.FilePath" download>Download your 3D Model Here!</a>
+        </p>        
     </div>
 
     <canvas id="c" style=" width: 100%; height: 100%; display: block;"></canvas>
@@ -45,10 +47,10 @@
             scene.background = new THREE.Color('black');
 
             {
-                const planeSize = 40;
+                const planeSize = 15;
 
                 const loader = new THREE.TextureLoader();
-                const texture = loader.load('https://threejsfundamentals.org/threejs/resources/images/checker.png');
+                const texture = loader.load('/3DModels/Textures/Ground.jpg');
                 texture.wrapS = THREE.RepeatWrapping;
                 texture.wrapT = THREE.RepeatWrapping;
                 texture.magFilter = THREE.NearestFilter;
@@ -82,11 +84,12 @@
                 scene.add(light.target);
             }
 
-            var objLoader = new THREE.OBJLoader();
-            var material = new THREE.MeshBasicMaterial({ color: 'blue', side: THREE.DoubleSide });
+                var objLoader = new THREE.OBJLoader();
+                const texture = new THREE.TextureLoader().load('/3DModels/Textures/TVZ_Texture.jpg');
+
+            var material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
             objLoader.load(FilePath, function (obj) {
                 obj.traverse(function (child) {
-
                     if (child instanceof THREE.Mesh) {
                         child.material = material;
                     }
@@ -133,18 +136,6 @@
 
             requestAnimationFrame(render);
             }
-
-            function Download(url) {
-                document.getElementById('my_iframe').src = url;
-            };
-
-            $(document).ready(function () {
-                $("#link").click(function (e) {
-                    e.preventDefault();
-                    link.target = '@ViewBag.FilePath';
-        
-                });
-            });
 
             Show3DModel();
 

@@ -30,7 +30,7 @@ namespace Vjezba.Web
         {
             services.AddDbContext<ThreeDModelDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("ClientManagerDbContext"),
+                    Configuration.GetConnectionString("ThreeDModelDbContext"),
                     opt => opt.MigrationsAssembly("Vjezba.DAL")));
 
             /*services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)

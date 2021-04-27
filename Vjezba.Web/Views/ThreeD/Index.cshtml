@@ -4,7 +4,6 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
 <style>
     .tab-pane {
         padding: 20px;
@@ -21,9 +20,9 @@
 
 </div>
 
-
 @section Scripts{
     <script>
+
         $("#filterBtn").click(function () {
 			$.ajax({
 				url: "@Url.Action("AjaxSearch")",
@@ -47,7 +46,6 @@
 				},
             });
         });
-
 
     </script>
 }
