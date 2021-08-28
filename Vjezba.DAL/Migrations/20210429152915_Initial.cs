@@ -235,17 +235,17 @@ namespace Vjezba.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "threeD",
                 columns: new[] { "ID", "CategoryID", "Comment", "CreatedBy", "Name", "UpdatedBy", "UploadedDateTime", "objAttachmentID" },
-                values: new object[] { 1, 1, "Lorem Ipsum1", "Josip Skrlec1", "Object1", null, new DateTime(2021, 4, 27, 14, 2, 21, 621, DateTimeKind.Local).AddTicks(9989), 3 });
+                values: new object[] { 1, 1, "Lorem Ipsum1", "Josip Skrlec1", "Object1", null, new DateTime(2021, 4, 29, 17, 29, 15, 81, DateTimeKind.Local).AddTicks(5295), 3 });
 
             migrationBuilder.InsertData(
                 table: "threeD",
                 columns: new[] { "ID", "CategoryID", "Comment", "CreatedBy", "Name", "UpdatedBy", "UploadedDateTime", "objAttachmentID" },
-                values: new object[] { 3, 2, "Lorem Ipsum3", "Josip Skrlec3", "Object3", null, new DateTime(2021, 4, 27, 14, 2, 21, 626, DateTimeKind.Local).AddTicks(2079), 1 });
+                values: new object[] { 3, 2, "Lorem Ipsum3", "Josip Skrlec3", "Object3", null, new DateTime(2021, 4, 29, 17, 29, 15, 84, DateTimeKind.Local).AddTicks(161), 1 });
 
             migrationBuilder.InsertData(
                 table: "threeD",
                 columns: new[] { "ID", "CategoryID", "Comment", "CreatedBy", "Name", "UpdatedBy", "UploadedDateTime", "objAttachmentID" },
-                values: new object[] { 2, 3, "Lorem Ipsum2", "Josip Skrlec2", "Object2", null, new DateTime(2021, 4, 27, 14, 2, 21, 626, DateTimeKind.Local).AddTicks(1976), 2 });
+                values: new object[] { 2, 3, "Lorem Ipsum2", "Josip Skrlec2", "Object2", null, new DateTime(2021, 4, 29, 17, 29, 15, 84, DateTimeKind.Local).AddTicks(72), 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

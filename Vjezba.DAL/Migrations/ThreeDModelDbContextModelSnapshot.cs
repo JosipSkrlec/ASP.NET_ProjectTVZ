@@ -301,7 +301,7 @@ namespace Vjezba.DAL.Migrations
                             Comment = "Lorem Ipsum1",
                             CreatedBy = "Josip Skrlec1",
                             Name = "Object1",
-                            UploadedDateTime = new DateTime(2021, 4, 27, 14, 2, 21, 621, DateTimeKind.Local).AddTicks(9989),
+                            UploadedDateTime = new DateTime(2021, 4, 29, 17, 29, 15, 81, DateTimeKind.Local).AddTicks(5295),
                             objAttachmentID = 3
                         },
                         new
@@ -311,7 +311,7 @@ namespace Vjezba.DAL.Migrations
                             Comment = "Lorem Ipsum2",
                             CreatedBy = "Josip Skrlec2",
                             Name = "Object2",
-                            UploadedDateTime = new DateTime(2021, 4, 27, 14, 2, 21, 626, DateTimeKind.Local).AddTicks(1976),
+                            UploadedDateTime = new DateTime(2021, 4, 29, 17, 29, 15, 84, DateTimeKind.Local).AddTicks(72),
                             objAttachmentID = 2
                         },
                         new
@@ -321,7 +321,7 @@ namespace Vjezba.DAL.Migrations
                             Comment = "Lorem Ipsum3",
                             CreatedBy = "Josip Skrlec3",
                             Name = "Object3",
-                            UploadedDateTime = new DateTime(2021, 4, 27, 14, 2, 21, 626, DateTimeKind.Local).AddTicks(2079),
+                            UploadedDateTime = new DateTime(2021, 4, 29, 17, 29, 15, 84, DateTimeKind.Local).AddTicks(161),
                             objAttachmentID = 1
                         });
                 });
